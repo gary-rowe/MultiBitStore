@@ -14,7 +14,7 @@
 
   <url>http://multibitmerchant.org</url>
 
-  <name>MultiBit Merchant Dojo Client</name>
+  <name>MultiBit Store</name>
   <description>An online store using Dropwizard and MBM</description>
   <inceptionYear>2012</inceptionYear>
 
