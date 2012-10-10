@@ -5,12 +5,12 @@
     <groupId>org.multibit.merchant</groupId>
     <artifactId>mbm-parent</artifactId>
     <version>develop-SNAPSHOT</version>
-    <relativePath>../../../pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.multibit.merchant.client.java</groupId>
   <artifactId>store</artifactId>
+  <version>develop-SNAPSHOT</version>
 
   <url>http://multibitmerchant.org</url>
 
@@ -66,13 +66,13 @@
     <dependency>
       <groupId>org.multibit.merchant</groupId>
       <artifactId>dropwizard-hal</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <!-- Provides common HAL representation testing support -->
     <dependency>
       <groupId>org.multibit.merchant</groupId>
       <artifactId>dropwizard-hal-testing</artifactId>
-      <version>${project.parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
     <!-- Dropwizard framework -->
