@@ -5,6 +5,8 @@
 *.war
 *.ear
 
+*.iml
+
 .idea/.name
 
 .idea/compiler.xml
