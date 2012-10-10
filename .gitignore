@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+.idea/.name
+
+.idea/compiler.xml
+
+.idea/encodings.xml
