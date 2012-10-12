@@ -1,14 +1,9 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
+.classpath
+.project
+.settings/
+.idea/
 *.iml
-
-.idea/.name
-
-.idea/compiler.xml
-
-.idea/encodings.xml
+*.iws
+.DS_Store
+log/
+target/
