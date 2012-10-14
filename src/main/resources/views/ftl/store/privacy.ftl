@@ -68,7 +68,7 @@
     </div>
 
   </div>
-  <p><a class="btn btn-primary btn-large" href="/home">OK, got it.</a></p>
+  <p><a class="btn btn-primary btn-large" href="/">OK, got it.</a></p>
 </div>
 <h2>Full Version</h2>
 
