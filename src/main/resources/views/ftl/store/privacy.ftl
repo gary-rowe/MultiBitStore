@@ -22,7 +22,7 @@
 <div class="hero-unit">
   <h2>The Short Version</h2>
 
-  <p>It is possible for you to make a purchase from us and <em>reveal no information about yourself whatsoever</em>.</p>
+  <p>We use Bitcoin for payments so it is possible for you to make a purchase from us and <strong>reveal no information about yourself whatsoever</strong>.</p>
 
   <p>Once a purchase has been completed, we will provide you with a digitally signed receipt that can be verified
     independently from a public key repository. This receipt contains no personally identifying information and
@@ -92,8 +92,7 @@
     <h4>Logging</h4>
 
     <p>For visitors to our website, we generally log requests to our website through a program called
-      logback (described further below) and do internal analytical logging (also described further
-      below) for up to seven days from when the data was collected.</p>
+      logback (described further below) for up to seven days from when the data was collected.</p>
 
     <p>Circumstances in which we may need to log and retain technical information for longer than seven days include
       when we believe it is reasonably necessary to continue our operations, including situations such as:</p>
