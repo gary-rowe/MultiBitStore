@@ -79,7 +79,7 @@
     <!-- Provides common HAL support -->
     <dependency>
       <groupId>org.multibit.merchant</groupId>
-      <artifactId>dropwizard-hal</artifactId>
+      <artifactId>mbm-client</artifactId>
       <version>${project.version}</version>
     </dependency>
     <!-- Provides common HAL representation testing support -->

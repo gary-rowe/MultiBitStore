@@ -1,6 +1,6 @@
 package org.multibit.store.views;
 
-import org.multibit.store.model.Item;
+import org.multibit.mbm.model.PublicItem;
 
 /**
  * <p>View to provide the following to resources:</p>
@@ -15,14 +15,14 @@ import org.multibit.store.model.Item;
  */
 public class PublicItemView extends PublicFreemarkerView {
 
-  private final Item item;
+  private final PublicItem item;
 
-  public PublicItemView(String templateName, Item item) {
+  public PublicItemView(String templateName, PublicItem item) {
     super(templateName);
     this.item=item;
   }
 
-  public Item getItem() {
+  public PublicItem getItem() {
     return item;
   }
 
