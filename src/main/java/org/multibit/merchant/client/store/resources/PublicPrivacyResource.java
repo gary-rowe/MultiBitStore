@@ -2,6 +2,7 @@ package org.multibit.merchant.client.store.resources;
 
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.merchant.client.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;

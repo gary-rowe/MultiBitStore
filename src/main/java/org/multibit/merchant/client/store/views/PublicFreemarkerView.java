@@ -1,11 +1,11 @@
-package org.multibit.merchant.client.store.resources;
+package org.multibit.merchant.client.store.views;
 
 import com.yammer.dropwizard.views.View;
 
 /**
- * <p>View to provide the following to application:</p>
+ * <p>View to provide the following to resources:</p>
  * <ul>
- * <li>Representation of the home page</li>
+ * <li>Representation of a simple page with only User customisation</li>
  * </ul>
  *
  * @since 0.0.1
@@ -15,7 +15,7 @@ import com.yammer.dropwizard.views.View;
  */
 public class PublicFreemarkerView extends View {
 
-  protected PublicFreemarkerView(String templateName) {
+  public PublicFreemarkerView(String templateName) {
     super("/views/ftl/"+templateName);
   }
 }

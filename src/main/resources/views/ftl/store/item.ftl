@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="" type="org.multibit.merchant.client.store.views.PublicItemView" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
 
   <div class="row">
     <div class="span9">
-      <h1>Ipod touch</h1>
+      <h1>${item.name?html}</h1>
     </div>
   </div>
   <hr>
