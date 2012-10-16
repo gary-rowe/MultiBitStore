@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="" type="org.multibit.merchant.client.store.views.PublicItemView" -->
+<#-- @ftlvariable name="" type="org.multibit.store.views.PublicItemView" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

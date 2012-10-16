@@ -3,6 +3,14 @@ http:
   port: 9090
   adminPort: 9091
 
+httpClient:
+  timeout: 1s # timeout after 1s while connecting, reading, or writing
+  timeToLive: 10m # keep connections open for 10 minutes
+  cookiesEnabled: false # don't track cookies
+  gzipEnabled: true # allow for gzipped request and response entities
+  minThreads: 1
+  maxThreads: 128 # thread pool for JerseyClient's async requests
+
 # TODO Put only the database connectivity in here
 # Load up all default values directly into the database
 
