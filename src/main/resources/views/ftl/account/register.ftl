@@ -19,81 +19,11 @@
 
       <br/>
 
-      <form class="form-horizontal">
+      <form class="form-horizontal" action="/account/register" method="POST">
         <fieldset>
-          <div class="span6 no_margin_left">
-            <legend>Your Personal Details</legend>
-            <div class="control-group">
-              <label class="control-label">First Name</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Last Name</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Email Address</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">Telephone</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-          </div>
-          <div class="span6">
-            <legend>Your Address</legend>
-            <div class="control-group">
-              <label class="control-label">Address 1</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Address 2</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">City</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">ZIP</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Country</label>
-
-              <div class="controls docs-input-sizes">
-                <input type="text" placeholder="" class="span4">
-              </div>
-            </div>
-          </div>
 
           <div class="span12 no_margin_left">
-            <legend>Your login</legend>
+            <h2>Your login</h2>
             <div class="span6 no_margin_left">
               <div class="control-group">
                 <label class="control-label">Username</label>
@@ -120,15 +50,14 @@
               </div>
             </div>
 
-
           </div>
-
 
           <div class=" span12 no_margin_left">
             <hr>
+            <h2>Agreements</h2>
             <div class="span8">
-              <input type="checkbox" value="option1" name="optionsCheckboxList1"> I have read and agree to the Privacy
-              Policy<br/>
+              <input type="checkbox" value="option1" name="optionsCheckboxList1"> I have read and agree to the <a href="/privacy" target="_blank">Privacy
+              Policy</a> <br/>
               <input type="checkbox" value="option2" name="optionsCheckboxList2"> Subscribe to our newsletter
 
             </div>

@@ -59,7 +59,8 @@
           <div class="span6">
             <address>
               <strong>Publisher:</strong> <span>${item.optionalProperties.publisher!"-"?html}</span><br/>
-              <strong>Product Code:</strong> <span>${item.optionalProperties.product_code!"-"?html}</span><br/>
+              <strong>ISBN:</strong> <span>${item.optionalProperties.sku!"-"?html}</span><br/>
+              <strong>ISBN-13:</strong> <span>${item.optionalProperties.gtin!"-"?html}</span><br/>
               <strong>Reward Points:</strong> <span>${item.optionalProperties.reward_points!"-"?html}</span><br/>
               <strong>Availability:</strong> <span>${item.optionalProperties.availability!"-"?html}</span><br/>
             </address>
@@ -118,7 +119,7 @@
               <li><a href="#3" data-toggle="tab">Related products</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="1">${item.optionalProperties.summary!"-"}</div>
+              <div class="tab-pane active" id="1">${item.optionalProperties.description!"-"}</div>
               <div class="tab-pane" id="2">
                 <p>There are no reviews for this product.</p>
               </div>

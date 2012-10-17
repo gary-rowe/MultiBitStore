@@ -6,9 +6,7 @@ import com.yammer.metrics.annotation.Timed;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
@@ -35,17 +33,55 @@ public class CustomerAccountResource extends BaseResource {
   }
 
   /**
-   * Provide the initial view on to the system
+   * Provide the initial view on to the login/registration page
    *
    * @return A localised view containing HTML
    */
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView retrieveAllByPage() {
+  public PublicFreemarkerView showLogin() {
     // TODO Add i18n
-    // TODO Add security
+    // TODO Add security (page should only be served through HTTPS)
     return new PublicFreemarkerView("account/account.ftl");
   }
+
+  /**
+   * Provide the initial view on to the login/registration page
+   *
+   * @return A localised view containing HTML
+   */
+  @POST
+  @Timed
+  @Path("/register")
+  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  public PublicFreemarkerView register(
+    @FormParam("username") String rawUsername,
+    @FormParam("password") String rawPassword) {
+
+    // Attempt to authenticate
+
+    return new PublicFreemarkerView("account/history.ftl");
+  }
+
+  /**
+   * Provide the initial view on to the login/registration page
+   *
+   * @return A localised view containing HTML
+   */
+  @POST
+  @Timed
+  @Path("/login")
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  public PublicFreemarkerView login(
+    @FormParam("username") String rawUsername,
+    @FormParam("password") String rawPassword) {
+
+    // Attempt to authenticate
+
+    return new PublicFreemarkerView("account/history.ftl");
+  }
+
 
 }

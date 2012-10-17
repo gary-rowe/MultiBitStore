@@ -6,7 +6,9 @@ import com.yammer.metrics.annotation.Timed;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
@@ -20,15 +22,15 @@ import java.util.concurrent.TimeUnit;
  * @since 0.0.1
  */
 @Component
-@Path("/register")
+@Path("/account/profile")
 @Produces(MediaType.TEXT_HTML)
-public class CustomerRegisterResource extends BaseResource {
+public class CustomerProfileResource extends BaseResource {
 
   /**
    * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
    * @param mbmBaseUri   The MBM base URI to locate the upstream server
    */
-  public CustomerRegisterResource(JerseyClient jerseyClient, URI mbmBaseUri) {
+  public CustomerProfileResource(JerseyClient jerseyClient, URI mbmBaseUri) {
     super(jerseyClient, mbmBaseUri);
   }
 
@@ -40,25 +42,7 @@ public class CustomerRegisterResource extends BaseResource {
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView showRegistration() {
-    // TODO Add i18n
-    // TODO Add security
-    return new PublicFreemarkerView("account/register.ftl");
-  }
-
-  /**
-   * Provide the initial view on to the system
-   *
-   * @return A localised view containing HTML
-   */
-  @POST
-  @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView handleRegistration(
-    @FormParam("username") String rawUsername,
-    @FormParam("password1") String rawPassword1,
-    @FormParam("password2") String rawPassword2
-    ) {
+  public PublicFreemarkerView retrieveAllByPage() {
     // TODO Add i18n
     // TODO Add security
     return new PublicFreemarkerView("account/profile.ftl");

@@ -4,75 +4,131 @@
 <#include "../includes/head.ftl">
 </head>
 
+
 <body>
 
 <div class="container">
 <#include "../includes/header.ftl">
 <#include "../includes/navbar.ftl">
-
   <div class="row">
-
     <div class="span12">
-    <#include "../includes/breadcrumb-account.ftl">
 
-      <div class="row">
-        <div class="span9">
-          <h1>Account login</h1>
-        </div>
-      </div>
 
-      <hr/>
+      <h1>Account History</h1><br/>
 
-      <div class="row">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Remove</th>
+          <th>Image</th>
+          <th>Product Name</th>
+          <th>Model</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class=""><input type="checkbox" value="option1" id="optionsCheckbox"></td>
+          <td class="muted center_text"><a href="item"><img src="/images/macbook-pro.jpg"></a></td>
+          <td>MacBook Pro</td>
+          <td>Product 18</td>
+          <td><input type="text" placeholder="1" class="input-mini"></td>
+          <td>$2,350.00</td>
+          <td>$2,350.00</td>
+        </tr>
+        <tr>
+          <td class=""><input type="checkbox" value="option1" id="optionsCheckbox"></td>
+          <td class="muted center_text"><a href="item"><img src="/images/macbook-pro.jpg"></a></td>
+          <td>MacBook Pro</td>
+          <td>Product 18</td>
+          <td><input type="text" placeholder="1" class="input-mini"></td>
+          <td>$2,350.00</td>
+          <td>$2,350.00</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td><strong>$4,700.00</strong></td>
+        </tr>
+        </tbody>
+      </table>
 
-        <div class="span5 well">
-          <h2>New Customers</h2>
+      <form class="form-horizontal">
+        <fieldset>
 
-          <p>By creating an account with our store, you will be able to move through the checkout process faster, store
-            multiple shipping addresses, view and track your orders in your account and more.</p><br/>
-          <a href="register" class="btn btn-primary pull-right">Create an account</a>
-        </div>
 
-        <div class="span5 well pull-right">
-          <h2>Registered Customers</h2>
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
 
-          <p>If you have an account with us, please log in.</p>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  <h3>Apply discount code</h3>
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Discount code: </label>
 
-          <form class="">
-            <fieldset>
-              <div class="control-group">
-                <label for="focusedInput" class="control-label">Username</label>
+                    <div class="controls">
+                      <input type="text" id="input01" class="input-xlarge" placeholder="Enter your coupon here">
 
-                <div class="controls">
-                  <input type="text" placeholder="Enter your username" id="username" class="input-xlarge focused">
+                      <p class="help-block">You can only use one discount code at a time</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label">Password</label>
+            </div>
 
-                <div class="controls">
-                  <input type="password" placeholder="Enter your password" id="password" class="input-xlarge">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                  <h3>Use gift voucher</h3>
+                </a>
+              </div>
+              <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Gift voucher: </label>
+
+                    <div class="controls">
+                      <input type="text" id="input01" class="input-xlarge" placeholder="Enter your gift voucher here">
+
+                      <p class="help-block">You can use multiple gift vouchers at a time</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <button class="btn btn-primary pull-right" type="submit">Login</button>
-            </fieldset>
-          </form>
+          <div class="row">
+            <div class="span5">
+              <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+            <div class="span2">
+              <button class="btn btn-primary" type="submit">Continue shopping</button>
+            </div>
+            <div class="span5">
+              <a href="checkout" class="btn btn-primary pull-right">Checkout</a>
+            </div>
+          </div>
+        </fieldset>
+      </form>
 
-        </div>
 
-      </div>
+    <#include "../includes/footer.ftl">
+
     </div>
+    <!-- /container -->
 
-  </div>
-
-
-<#include "../includes/footer.ftl">
-
-</div>
-<!-- /container -->
-
-<#include "../includes/cdn-scripts.ftl">
+  <#include "../includes/cdn-scripts.ftl">
 
 
 </body>
