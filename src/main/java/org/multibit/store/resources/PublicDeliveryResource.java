@@ -1,5 +1,6 @@
 package org.multibit.store.resources;
 
+import com.yammer.dropwizard.client.JerseyClient;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.store.views.PublicFreemarkerView;
@@ -22,7 +23,14 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Path("/delivery")
 @Produces(MediaType.TEXT_HTML)
-public class PublicDeliveryResource {
+public class PublicDeliveryResource extends BaseResource {
+
+  /**
+   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   */
+  public PublicDeliveryResource(JerseyClient jerseyClient) {
+    super(jerseyClient);
+  }
 
   /**
    * Provide the initial view on to the system

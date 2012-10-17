@@ -1,5 +1,6 @@
 package org.multibit.store.resources;
 
+import com.yammer.dropwizard.client.JerseyClient;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.store.views.PublicFreemarkerView;
@@ -22,7 +23,14 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Path("/history")
 @Produces(MediaType.TEXT_HTML)
-public class CustomerHistoryResource {
+public class CustomerHistoryResource extends BaseResource {
+
+  /**
+   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   */
+  public CustomerHistoryResource(JerseyClient jerseyClient) {
+    super(jerseyClient);
+  }
 
   /**
    * Provide the initial view on to the system

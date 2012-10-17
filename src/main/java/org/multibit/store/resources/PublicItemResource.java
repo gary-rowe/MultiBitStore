@@ -15,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -29,13 +28,17 @@ import java.util.concurrent.TimeUnit;
  * @since 0.0.1
  */
 @Component
+@Path("/item")
 @Produces(MediaType.TEXT_HTML)
 public class PublicItemResource extends BaseResource {
 
-  private final JerseyClient client;
+  private Locale locale;
 
-  public PublicItemResource(JerseyClient client) {
-    this.client=client;
+  /**
+   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   */
+  public PublicItemResource(JerseyClient jerseyClient) {
+    super(jerseyClient);
   }
 
   /**
@@ -44,20 +47,20 @@ public class PublicItemResource extends BaseResource {
    * @return A localised view containing HTML
    */
   @GET
-  @Path("/item/{sku}")
+  @Path("/{sku}")
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView retrieveBySku(
-    @Context Locale locale,
-    @PathParam("sku") String rawSku ) {
+  public PublicFreemarkerView retrieveBySku(@PathParam("sku") String rawSku ) {
+
+
 
     // TODO Validate the SKU
 
     // TODO Retrieve the Item from MBM with i18n
     Optional<PublicItem> item = PublicMerchantClient
-      .newInstance(client,locale)
+      .newInstance(jerseyClient,getLocale())
       .item()
-      .retrieveBySku("0575088893");
+      .retrieveBySku(rawSku);
     ResourceAsserts.assertPresent(item,"item");
 
     return new PublicItemView("store/item.ftl",item.get());

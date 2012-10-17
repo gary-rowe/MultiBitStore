@@ -31,7 +31,7 @@
 
   <div class="row">
     <div class="span9">
-      <h1>${item.name?html}</h1>
+      <h1>${item.optionalProperties["title"]?html}</h1>
     </div>
   </div>
   <hr>

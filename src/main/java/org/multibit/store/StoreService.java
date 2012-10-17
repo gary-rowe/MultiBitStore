@@ -8,9 +8,11 @@ import com.yammer.dropwizard.client.JerseyClientFactory;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
 import com.yammer.dropwizard.views.ViewMessageBodyWriter;
+import org.multibit.mbm.auth.hmac.HmacClientFilter;
 import org.multibit.store.health.StoreHealthCheck;
-import org.multibit.store.resources.PublicHomeResource;
-import org.multibit.store.resources.PublicItemResource;
+import org.multibit.store.resources.*;
+
+import javax.ws.rs.ext.Providers;
 
 /**
  * <p>Service to provide the following to application:</p>
@@ -50,17 +52,43 @@ public class StoreService extends Service<StoreConfiguration> {
 
     // Read the configuration
 
-    // Configure authenticator
+    // Configure upstream client
+    final JerseyClientFactory factory = new JerseyClientFactory(configuration.getJerseyClientConfiguration());
+    final JerseyClient jerseyClient = factory.build(environment);
+    Providers providers = jerseyClient.getProviders();
+    // TODO Find a way to configure HMAC per user per request (inject?)
+    jerseyClient.addFilter(new HmacClientFilter("trent123", "trent456", providers));
 
     // Start Spring context based on the provided location
 
-    // Configure environment accordingly
-    environment.scanPackagesForResourcesAndProviders(PublicHomeResource.class);
+    // Configure environment
 
-    // Client
-    final JerseyClientFactory factory = new JerseyClientFactory(configuration.getJerseyClientConfiguration());
-    final JerseyClient jerseyClient = factory.build(environment);
+    // Resources
+    // Affiliates
+    environment.addResource(new AffiliateAccountResource(jerseyClient));
+    // Customers
+    environment.addResource(new CustomerWishlistResource(jerseyClient));
+    environment.addResource(new CustomerHistoryResource(jerseyClient));
+    environment.addResource(new CustomerAccountResource(jerseyClient));
+    environment.addResource(new CustomerRegisterResource(jerseyClient));
+    // Public
+    environment.addResource(new PublicSpecialsResource(jerseyClient));
+    environment.addResource(new PublicListingsResource(jerseyClient));
+    environment.addResource(new PublicDeliveryResource(jerseyClient));
+    environment.addResource(new PublicBrandResource(jerseyClient));
     environment.addResource(new PublicItemResource(jerseyClient));
+    environment.addResource(new PublicCartResource(jerseyClient));
+    environment.addResource(new PublicPrivacyResource(jerseyClient));
+    environment.addResource(new PublicCompareResource(jerseyClient));
+    environment.addResource(new PublicTermsResource(jerseyClient));
+    environment.addResource(new PublicCategoryResource(jerseyClient));
+    environment.addResource(new PublicNewsResource(jerseyClient));
+    environment.addResource(new PublicVouchersResource(jerseyClient));
+    environment.addResource(new PublicHomeResource(jerseyClient));
+    environment.addResource(new PublicCheckoutResource(jerseyClient));
+    environment.addResource(new PublicAboutResource(jerseyClient));
+    environment.addResource(new PublicReturnsResource(jerseyClient));
+    environment.addResource(new PublicContactResource(jerseyClient));
 
     // Health checks
     environment.addHealthCheck(new StoreHealthCheck());
