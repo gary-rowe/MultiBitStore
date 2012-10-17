@@ -15,18 +15,7 @@
     </div>
 
     <div class="span9">
-      <ul class="breadcrumb">
-        <li>
-          <a href="#">Home</a> <span class="divider">/</span>
-        </li>
-        <li>
-          <a href="/listings">Brands</a> <span class="divider">/</span>
-        </li>
-        <li class="active">
-          <a href="category">Mac</a>
-        </li>
-      </ul>
-
+    <#include "../includes/breadcrumb-listings.ftl">
 
       <div class="row">
         <div class="span1">

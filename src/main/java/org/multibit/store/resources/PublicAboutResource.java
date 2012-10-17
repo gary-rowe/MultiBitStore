@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,9 +28,10 @@ public class PublicAboutResource extends BaseResource {
 
   /**
    * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   * @param mbmBaseUri   The MBM base URI to locate the upstream server
    */
-  public PublicAboutResource(JerseyClient jerseyClient) {
-    super(jerseyClient);
+  public PublicAboutResource(JerseyClient jerseyClient, URI mbmBaseUri) {
+    super(jerseyClient, mbmBaseUri);
   }
 
   /**

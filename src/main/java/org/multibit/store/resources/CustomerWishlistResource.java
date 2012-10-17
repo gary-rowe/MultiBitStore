@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,11 +28,11 @@ public class CustomerWishlistResource extends BaseResource {
 
   /**
    * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   * @param mbmBaseUri   The MBM base URI to locate the upstream server
    */
-  public CustomerWishlistResource(JerseyClient jerseyClient) {
-    super(jerseyClient);
+  public CustomerWishlistResource(JerseyClient jerseyClient, URI mbmBaseUri) {
+    super(jerseyClient, mbmBaseUri);
   }
-
   /**
    * Provide the initial view on to the system
    *

@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Locale;
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,13 +32,12 @@ import java.util.concurrent.TimeUnit;
 @Produces(MediaType.TEXT_HTML)
 public class PublicItemResource extends BaseResource {
 
-  private Locale locale;
-
   /**
    * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   * @param mbmBaseUri   The MBM base URI to locate the upstream server
    */
-  public PublicItemResource(JerseyClient jerseyClient) {
-    super(jerseyClient);
+  public PublicItemResource(JerseyClient jerseyClient, URI mbmBaseUri) {
+    super(jerseyClient, mbmBaseUri);
   }
 
   /**
@@ -52,13 +51,11 @@ public class PublicItemResource extends BaseResource {
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView retrieveBySku(@PathParam("sku") String rawSku ) {
 
-
-
     // TODO Validate the SKU
 
     // TODO Retrieve the Item from MBM with i18n
     Optional<PublicItem> item = PublicMerchantClient
-      .newInstance(jerseyClient,getLocale())
+      .newInstance(jerseyClient,getLocale(),getMbmBaseUri())
       .item()
       .retrieveBySku(rawSku);
     ResourceAsserts.assertPresent(item,"item");

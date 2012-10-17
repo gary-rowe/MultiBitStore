@@ -12,14 +12,9 @@
   <div class="row">
 
     <div class="span12">
-      <ul class="breadcrumb">
-        <li><a href="#">Home</a> <span class="divider">/</span></li>
-        <li><a href="#">Account</a> <span class="divider">/</span></li>
-        <li class="active"><a href="#">Register</a></li>
-      </ul>
-    </div>
+    <#include "../includes/breadcrumb-account.ftl">
 
-    <div class="span12">
+      <div class="span12">
       <h1>Create an account</h1>
 
       <br/>

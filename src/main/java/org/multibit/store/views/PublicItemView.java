@@ -10,8 +10,6 @@ import org.multibit.mbm.model.PublicItem;
  *
  * @since 0.0.1
  *
- * TODO Add support for backing bean with i18n etc
- *         
  */
 public class PublicItemView extends PublicFreemarkerView {
 

@@ -27,6 +27,10 @@ public class StoreConfiguration extends Configuration {
   @JsonProperty
   private String assetCachePolicy="maximumSize=10000, expireAfterAccess=5s";
 
+  @NotEmpty
+  @JsonProperty
+  private String mbmBaseUri="http://multibit-merchant.herokuapp.com";
+
   @Valid
   @NotNull
   @JsonProperty
@@ -44,4 +48,7 @@ public class StoreConfiguration extends Configuration {
     return httpClient;
   }
 
+  public String getMbmBaseUri() {
+    return mbmBaseUri;
+  }
 }

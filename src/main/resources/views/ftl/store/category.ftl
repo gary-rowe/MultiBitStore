@@ -14,15 +14,7 @@
     <#include "../includes/left-sidebar.ftl">
     </div>
     <div class="span9">
-      <ul class="breadcrumb">
-        <li>
-          <a href="#">Home</a> <span class="divider">/</span>
-        </li>
-        <li class="active">
-          <a href="#">Computers & Office</a>
-        </li>
-      </ul>
-
+    <#include "../includes/breadcrumb-listings.ftl">
 
       <div class="row">
         <div class="span9"><!-- start categories -->

@@ -5,6 +5,7 @@ import com.yammer.dropwizard.client.JerseyClient;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 import java.util.Locale;
 
 /**
@@ -29,11 +30,15 @@ public abstract class BaseResource {
   // All resources must allow for upstream communication
   protected final JerseyClient jerseyClient;
 
+  protected final URI mbmBaseUri;
+
   /**
    * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
+   * @param mbmBaseUri   The MBM base URI to locate the upstream server
    */
-  public BaseResource(JerseyClient jerseyClient) {
+  public BaseResource(JerseyClient jerseyClient, URI mbmBaseUri) {
     this.jerseyClient = jerseyClient;
+    this.mbmBaseUri = mbmBaseUri;
   }
 
   /**
@@ -48,4 +53,7 @@ public abstract class BaseResource {
     return locale;
   }
 
+  public URI getMbmBaseUri() {
+    return mbmBaseUri;
+  }
 }

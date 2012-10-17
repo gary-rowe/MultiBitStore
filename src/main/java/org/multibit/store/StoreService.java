@@ -13,6 +13,7 @@ import org.multibit.store.health.StoreHealthCheck;
 import org.multibit.store.resources.*;
 
 import javax.ws.rs.ext.Providers;
+import java.net.URI;
 
 /**
  * <p>Service to provide the following to application:</p>
@@ -51,6 +52,7 @@ public class StoreService extends Service<StoreConfiguration> {
                             Environment environment) {
 
     // Read the configuration
+    URI mbmBaseUri = URI.create(configuration.getMbmBaseUri());
 
     // Configure upstream client
     final JerseyClientFactory factory = new JerseyClientFactory(configuration.getJerseyClientConfiguration());
@@ -65,30 +67,30 @@ public class StoreService extends Service<StoreConfiguration> {
 
     // Resources
     // Affiliates
-    environment.addResource(new AffiliateAccountResource(jerseyClient));
+    environment.addResource(new AffiliateAccountResource(jerseyClient,mbmBaseUri));
     // Customers
-    environment.addResource(new CustomerWishlistResource(jerseyClient));
-    environment.addResource(new CustomerHistoryResource(jerseyClient));
-    environment.addResource(new CustomerAccountResource(jerseyClient));
-    environment.addResource(new CustomerRegisterResource(jerseyClient));
+    environment.addResource(new CustomerWishlistResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new CustomerHistoryResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new CustomerAccountResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new CustomerRegisterResource(jerseyClient,mbmBaseUri));
     // Public
-    environment.addResource(new PublicSpecialsResource(jerseyClient));
-    environment.addResource(new PublicListingsResource(jerseyClient));
-    environment.addResource(new PublicDeliveryResource(jerseyClient));
-    environment.addResource(new PublicBrandResource(jerseyClient));
-    environment.addResource(new PublicItemResource(jerseyClient));
-    environment.addResource(new PublicCartResource(jerseyClient));
-    environment.addResource(new PublicPrivacyResource(jerseyClient));
-    environment.addResource(new PublicCompareResource(jerseyClient));
-    environment.addResource(new PublicTermsResource(jerseyClient));
-    environment.addResource(new PublicCategoryResource(jerseyClient));
-    environment.addResource(new PublicNewsResource(jerseyClient));
-    environment.addResource(new PublicVouchersResource(jerseyClient));
-    environment.addResource(new PublicHomeResource(jerseyClient));
-    environment.addResource(new PublicCheckoutResource(jerseyClient));
-    environment.addResource(new PublicAboutResource(jerseyClient));
-    environment.addResource(new PublicReturnsResource(jerseyClient));
-    environment.addResource(new PublicContactResource(jerseyClient));
+    environment.addResource(new PublicSpecialsResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicListingsResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicDeliveryResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicBrandResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicItemResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicCartResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicPrivacyResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicCompareResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicTermsResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicCategoryResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicNewsResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicVouchersResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicHomeResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicCheckoutResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicAboutResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicReturnsResource(jerseyClient,mbmBaseUri));
+    environment.addResource(new PublicContactResource(jerseyClient,mbmBaseUri));
 
     // Health checks
     environment.addHealthCheck(new StoreHealthCheck());

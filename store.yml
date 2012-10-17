@@ -1,8 +1,12 @@
+# Define Store specific settings
+mbmBaseUri: http://localhost:8080
+
 # Define the HTTP settings
 http:
   port: 9090
   adminPort: 9091
 
+# Define the client settings for connecting to upstream data services
 httpClient:
   timeout: 1s # timeout after 1s while connecting, reading, or writing
   timeToLive: 10m # keep connections open for 10 minutes

@@ -1,13 +1,9 @@
-# Define the HTTP settings
-# Heroku demands a single port of 8080 for resources
-# This triggers the /admin behaviour of Dropwizard
-http:
-  port: 8080
-  adminPort: 8080
+# Define Store specific settings
+mbmBaseUri: http://multibit-merchant.herokuapp.com
 
-  adminUsername: admin
-  adminPassword: password
+# Heroku injects the port value
 
+# Define the client settings for connecting to upstream data services
 httpClient:
   timeout: 1s # timeout after 1s while connecting, reading, or writing
   timeToLive: 10m # keep connections open for 10 minutes
@@ -21,4 +17,3 @@ httpClient:
 
 # TODO Support a configuration version field
 #
-
