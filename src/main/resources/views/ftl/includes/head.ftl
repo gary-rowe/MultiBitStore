@@ -9,11 +9,10 @@
 <meta name="author" content="Gary Rowe">
 
 <!-- Bootstrap CDN -->
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet">
 
 <!-- Bootswatch (themes) CDN -->
 <link id="switch_style" href="//netdna.bootstrapcdn.com/bootswatch/2.1.0/bootstrap/bootstrap.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-responsive.min.css" rel="stylesheet">
 
 <!-- Allow IE6-8 support of HTML5 elements (must be in head section) -->
 <!--[if lt IE 9]>
