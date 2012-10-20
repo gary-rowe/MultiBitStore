@@ -31,7 +31,7 @@
   <div class="row">
 
     <div class="span12">
-      <a href="/"><img src="/images/404.jpg"></a>
+      <a href="/"><img src="/images/error.jpg"></a>
     </div>
 
   </div>
