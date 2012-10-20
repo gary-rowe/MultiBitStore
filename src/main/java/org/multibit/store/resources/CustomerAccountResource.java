@@ -11,11 +11,14 @@ import org.jasypt.util.password.rfc2307.RFC2307SHAPasswordEncryptor;
 import org.multibit.mbm.auth.webform.WebFormClientAuthenticator;
 import org.multibit.mbm.auth.webform.WebFormClientCredentials;
 import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.StoreConfiguration;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,22 +42,28 @@ public class CustomerAccountResource extends BaseResource {
   private final PasswordEncryptor passwordEncryptor = new RFC2307SHAPasswordEncryptor();
   private WebFormClientAuthenticator authenticator = new WebFormClientAuthenticator();
 
+  private final StoreConfiguration storeConfiguration;
+
+  public CustomerAccountResource(StoreConfiguration storeConfiguration) {
+    this.storeConfiguration = storeConfiguration;
+  }
+
   /**
-   * Provide the initial view on to the login/registration page
+   * Provide the initial view on to the signin/registration page
    *
    * @return A localised view containing HTML
    */
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView showLogin() {
+  public PublicFreemarkerView showSignin() {
     // TODO Add i18n
     // TODO Add security (page should only be served through HTTPS)
-    return new PublicFreemarkerView("account/login.ftl");
+    return new PublicFreemarkerView("account/signin.ftl");
   }
 
   /**
-   * Provide the initial view on to the login/registration page
+   * Provide the initial view on to the signin/registration page
    *
    * @return A localised view containing HTML
    */
@@ -72,15 +81,15 @@ public class CustomerAccountResource extends BaseResource {
   }
 
   /**
-   * Provide the initial view on to the login/registration page
+   * Provide the initial view on to the signin/registration page
    *
    * @return A localised view containing HTML
    */
   @POST
   @Timed
-  @Path("/login")
+  @Path("/signin")
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView login(
+  public Response signin(
     @FormParam("username") String rawUsername,
     @FormParam("password") String rawPassword) {
 
@@ -93,9 +102,9 @@ public class CustomerAccountResource extends BaseResource {
       Preconditions.checkState(rawPassword.length() > 0);
       Preconditions.checkState(rawPassword.length() < 50);
     } catch (NullPointerException e) {
-      return handleFailedLogin();
+      return handleFailedSignIn();
     } catch (IllegalStateException e) {
-      return handleFailedLogin();
+      return handleFailedSignIn();
     }
 
     // Digest the plain password to offer minimal protection in transit
@@ -104,29 +113,43 @@ public class CustomerAccountResource extends BaseResource {
     WebFormClientCredentials credentials = new WebFormClientCredentials(rawUsername, digestedPassword);
 
     // Attempt to authenticate
+    Optional<ClientUser> clientUser=Optional.absent();
     try {
-      Optional<ClientUser> clientUser = authenticator.authenticate(credentials);
+      clientUser = authenticator.authenticate(credentials);
 
       if (!clientUser.isPresent()) {
-        return handleFailedLogin();
+        return handleFailedSignIn();
       }
 
     } catch (AuthenticationException e) {
       LOG.error(e,e.getMessage());
-      return handleFailedLogin();
+      return handleFailedSignIn();
     }
 
     // Must be OK to be here
-
-    // Drop the session cookie on to the user
-
-    return new PublicFreemarkerView("account/history.ftl");
+    return Response
+      .ok(new PublicFreemarkerView("account/history.ftl"))
+      .cookie(new NewCookie(storeConfiguration.getSessionTokenName(), clientUser.get().getSessionToken().toString()))
+      .build();
   }
 
-  private PublicFreemarkerView handleFailedLogin() {
-    // TODO Provide a failed login message
+  @GET
+  @Path("/signout")
+  public Response signout() {
+    return Response
+      .ok(new PublicFreemarkerView("store/signout.ftl"))
+      .cookie(new NewCookie(storeConfiguration.getSessionTokenName(), null, null, null, null, 0 /*maxAge*/, false))
+      .build();
+  }
+
+  private Response handleFailedSignIn() {
+
+    // TODO Provide a failed sign in alert across the top of the page
     // TODO Consider tarpitting based on
-    return new PublicFreemarkerView("account/login.ftl");
+    // Ensure we erase any local cookies just in case
+    return Response.ok(new PublicFreemarkerView("account/signin.ftl"))
+      .cookie(new NewCookie(storeConfiguration.getSessionTokenName(), null, null, null, null, 0 /*maxAge*/, false))
+      .build();
   }
 
   /**

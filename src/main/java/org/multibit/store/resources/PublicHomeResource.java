@@ -35,6 +35,7 @@ public class PublicHomeResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView viewHome() {
+
     // TODO Add i18n
     return new PublicFreemarkerView("store/home.ftl");
   }
@@ -45,7 +46,7 @@ public class PublicHomeResource extends BaseResource {
    * @return A the favicon images from the assets
    */
   @GET
-  @Path("/favicon.ico")
+  @Path("favicon.ico")
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public Response viewFavicon() {

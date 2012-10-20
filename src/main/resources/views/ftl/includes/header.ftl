@@ -37,7 +37,9 @@
         <a href="/account">My Account</a> |
         <a href="/cart">Shopping Cart</a> |
         <a href="/about">About</a> |
-        <a href="/contact">Contact</a>
+        <a href="/contact">Contact</a> |
+        <!-- TODO Wrap this in a suitable conditional -->
+        <a href="/account/signout">Sign Out</a>
       </div>
     </div>
   </div>

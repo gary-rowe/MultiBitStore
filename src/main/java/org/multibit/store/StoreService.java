@@ -2,16 +2,22 @@ package org.multibit.store;
 
 import com.google.common.cache.CacheBuilderSpec;
 import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.auth.CachingAuthenticator;
 import com.yammer.dropwizard.bundles.AssetsBundle;
 import com.yammer.dropwizard.client.JerseyClient;
 import com.yammer.dropwizard.client.JerseyClientFactory;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
 import com.yammer.dropwizard.views.ViewMessageBodyWriter;
+import org.multibit.mbm.auth.cookie.CookieClientAuthenticator;
+import org.multibit.mbm.auth.cookie.CookieClientCredentials;
+import org.multibit.mbm.auth.cookie.CookieClientRestrictedToProvider;
 import org.multibit.mbm.auth.hmac.HmacClientFilter;
 import org.multibit.mbm.client.HalHmacResourceFactory;
+import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.health.StoreHealthCheck;
-import org.multibit.store.resources.*;
+import org.multibit.store.resources.CustomerAccountResource;
+import org.multibit.store.resources.PublicHomeResource;
 
 import javax.ws.rs.ext.Providers;
 import java.net.URI;
@@ -70,16 +76,25 @@ public class StoreService extends Service<StoreConfiguration> {
       .setClientApiKey(configuration.getClientApiKey())
       .setClientSecretKey(configuration.getClientSecretKey());
 
-    // Start Spring context based on the provided location
+    // Configure authenticator
+    CookieClientAuthenticator authenticator = new CookieClientAuthenticator();
+    CachingAuthenticator<CookieClientCredentials, ClientUser> cachingAuthenticator = CachingAuthenticator
+      .wrap(authenticator, CacheBuilderSpec.parse(configuration.getCookieAuthenticationCachePolicy()));
 
     // Configure environment
     environment.scanPackagesForResourcesAndProviders(PublicHomeResource.class);
+    environment.addResource(new CustomerAccountResource(configuration));
 
     // Health checks
     environment.addHealthCheck(new StoreHealthCheck());
 
     // Providers
     environment.addProvider(new ViewMessageBodyWriter());
+    environment.addProvider(
+      new CookieClientRestrictedToProvider<ClientUser>(
+        cachingAuthenticator,
+        configuration.getSessionTokenName(),
+        configuration.getRememberMeName()));
 
     // Bundles
     addBundle(new ViewBundle());

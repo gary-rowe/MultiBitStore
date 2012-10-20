@@ -56,12 +56,12 @@
       <div class="span5">
         <h4>Registered Customers</h4>
 
-        <p>If you have an account with us, please log in.</p>
+        <p>If you have an account with us, please sign in.</p>
 
         <form class="">
           <fieldset>
             <div class="control-group">
-              <label for="focusedInput" class="control-label">Username</label>
+              <label for="username" class="control-label">Username</label>
 
               <div class="controls">
                 <input type="text" placeholder="Enter your username" id="username" class="input-xlarge focused">

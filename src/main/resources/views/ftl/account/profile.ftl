@@ -93,7 +93,7 @@
           </div>
 
           <div class="span12 no_margin_left">
-            <legend>Your login</legend>
+            <legend>Your signin</legend>
             <div class="span6 no_margin_left">
               <div class="control-group">
                 <label class="control-label">Username</label>

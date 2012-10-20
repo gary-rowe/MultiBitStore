@@ -24,7 +24,7 @@ public class StoreConfiguration extends Configuration {
   private String assetCachePolicy="maximumSize=10000, expireAfterAccess=5s";
 
   /**
-   * How long a session cookie authentication can remain inactive before the user must login in
+   * How long a session cookie authentication can remain inactive before the user must signin in
    * TODO Implement this
    */
   @NotEmpty
@@ -61,6 +61,20 @@ public class StoreConfiguration extends Configuration {
   @JsonProperty
   private String clientSecretKey ="store456";
 
+  /**
+   * The cookie name for the session token
+   */
+  @NotEmpty
+  @JsonProperty
+  private String sessionTokenName ="MBM-Session";
+
+  /**
+   * The cookie name for the "remember me" token
+   */
+  @NotEmpty
+  @JsonProperty
+  private String rememberMeName ="MBM-RememberMe";
+
   @Valid
   @NotNull
   @JsonProperty
@@ -92,5 +106,13 @@ public class StoreConfiguration extends Configuration {
 
   public String getCookieAuthenticationCachePolicy() {
     return cookieAuthenticationCachePolicy;
+  }
+
+  public String getSessionTokenName() {
+    return sessionTokenName;
+  }
+
+  public String getRememberMeName() {
+    return rememberMeName;
   }
 }

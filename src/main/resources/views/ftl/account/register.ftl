@@ -23,7 +23,7 @@
         <fieldset>
 
           <div class="span12 no_margin_left">
-            <h2>Your login</h2>
+            <h2>Your signin</h2>
             <div class="span6 no_margin_left">
               <div class="control-group">
                 <label class="control-label">Username</label>

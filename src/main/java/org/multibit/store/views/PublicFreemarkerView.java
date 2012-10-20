@@ -18,4 +18,5 @@ public class PublicFreemarkerView extends View {
   public PublicFreemarkerView(String templateName) {
     super("/views/ftl/"+templateName);
   }
+
 }

@@ -2,6 +2,10 @@ package org.multibit.store.resources;
 
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.auth.Authority;
+import org.multibit.mbm.auth.annotation.RestrictedTo;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.views.CustomerFreemarkerView;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -32,10 +36,12 @@ public class CustomerHistoryResource extends BaseResource {
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView retrieveAllByPage() {
+  public PublicFreemarkerView showHistory(
+    @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser user) {
+
     // TODO Add i18n
     // TODO Add security
-    return new PublicFreemarkerView("account/history.ftl");
+    return new CustomerFreemarkerView("account/history.ftl", user);
   }
 
 }
