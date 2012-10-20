@@ -1,6 +1,5 @@
 package org.multibit.store.resources;
 
-import com.yammer.dropwizard.client.JerseyClient;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.store.views.PublicFreemarkerView;
@@ -10,7 +9,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,14 +23,6 @@ import java.util.concurrent.TimeUnit;
 @Path("/about")
 @Produces(MediaType.TEXT_HTML)
 public class PublicAboutResource extends BaseResource {
-
-  /**
-   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
-   * @param mbmBaseUri   The MBM base URI to locate the upstream server
-   */
-  public PublicAboutResource(JerseyClient jerseyClient, URI mbmBaseUri) {
-    super(jerseyClient, mbmBaseUri);
-  }
 
   /**
    * Provide the initial view on to the system

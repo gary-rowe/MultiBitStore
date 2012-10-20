@@ -1,7 +1,6 @@
 package org.multibit.store.resources;
 
 import com.google.common.base.Optional;
-import com.yammer.dropwizard.client.JerseyClient;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.mbm.client.PublicMerchantClient;
@@ -16,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,14 +31,6 @@ import java.util.concurrent.TimeUnit;
 public class PublicItemResource extends BaseResource {
 
   /**
-   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
-   * @param mbmBaseUri   The MBM base URI to locate the upstream server
-   */
-  public PublicItemResource(JerseyClient jerseyClient, URI mbmBaseUri) {
-    super(jerseyClient, mbmBaseUri);
-  }
-
-  /**
    * Find a single item based on its Stock Keeping Unit (SKU)
    *
    * @return A localised view containing HTML
@@ -55,7 +45,7 @@ public class PublicItemResource extends BaseResource {
 
     // TODO Retrieve the Item from MBM with i18n
     Optional<PublicItem> item = PublicMerchantClient
-      .newInstance(jerseyClient,getLocale(),getMbmBaseUri())
+      .newInstance(getLocale())
       .item()
       .retrieveBySku(rawSku);
     ResourceAsserts.assertPresent(item,"item");

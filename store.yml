@@ -1,5 +1,6 @@
 # Define Store specific settings
-mbmBaseUri: http://localhost:8080
+serverBaseUri: http://localhost:8080
+serverContext: /mbm
 
 # Define the HTTP settings
 http:
@@ -14,6 +15,28 @@ httpClient:
   gzipEnabled: true # allow for gzipped request and response entities
   minThreads: 1
   maxThreads: 128 # thread pool for JerseyClient's async requests
+
+logging:
+
+  level: WARN
+
+  # Logger-specific levels.
+  loggers:
+
+    # Set specific levels
+    "com.sun.jersey.api.client": DEBUG
+    "com.yammer": INFO
+    "org.multibit": DEBUG
+
+  # ...
+  # Settings for logging to stdout.
+  console:
+
+    # If true, write log statements to stdout.
+    enabled: true
+
+    # Do not display log statements below this threshold to stdout.
+    threshold: ALL
 
 # TODO Put only the database connectivity in here
 # Load up all default values directly into the database

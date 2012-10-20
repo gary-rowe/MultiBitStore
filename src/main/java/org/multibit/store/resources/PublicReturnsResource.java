@@ -27,14 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class PublicReturnsResource extends BaseResource {
 
   /**
-   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
-   * @param mbmBaseUri   The MBM base URI to locate the upstream server
-   */
-  public PublicReturnsResource(JerseyClient jerseyClient, URI mbmBaseUri) {
-    super(jerseyClient, mbmBaseUri);
-  }
-
-  /**
    * Provide the initial view on to the system
    *
    * @return A localised view containing HTML

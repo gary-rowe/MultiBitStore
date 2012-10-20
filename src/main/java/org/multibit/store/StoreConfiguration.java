@@ -21,24 +21,50 @@ public class StoreConfiguration extends Configuration {
 
   @NotEmpty
   @JsonProperty
-  private String authenticationCachePolicy="maximumSize=10000, expireAfterAccess=10m";
-
-  @NotEmpty
-  @JsonProperty
   private String assetCachePolicy="maximumSize=10000, expireAfterAccess=5s";
 
+  /**
+   * How long a session cookie authentication can remain inactive before the user must login in
+   * TODO Implement this
+   */
   @NotEmpty
   @JsonProperty
-  private String mbmBaseUri="http://multibit-merchant.herokuapp.com";
+  private String cookieAuthenticationCachePolicy ="maximumSize=10000, expireAfterAccess=600s";
+
+  /**
+   * The base URI to locate the upstream server
+   */
+  @NotEmpty
+  @JsonProperty
+  private String serverBaseUri ="http://localhost:8080";
+
+  /**
+   * The context to locate the upstream server application
+   */
+  @NotEmpty
+  @JsonProperty
+  private String serverContext ="/mbm";
+
+  /**
+   * The client API key to allow this application to authenticate with the upstream server
+   * This would normally be injected through startup command line parameters
+   */
+  @NotEmpty
+  @JsonProperty
+  private String clientApiKey ="store123";
+
+  /**
+   * The client secret key to allow this application to authenticate with the upstream server
+   * This would normally be injected through startup command line parameters
+   */
+  @NotEmpty
+  @JsonProperty
+  private String clientSecretKey ="store456";
 
   @Valid
   @NotNull
   @JsonProperty
   private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
-
-  public String getAuthenticationCachePolicy() {
-    return authenticationCachePolicy;
-  }
 
   public String getAssetCachePolicy() {
     return assetCachePolicy;
@@ -48,7 +74,23 @@ public class StoreConfiguration extends Configuration {
     return httpClient;
   }
 
-  public String getMbmBaseUri() {
-    return mbmBaseUri;
+  public String getServerBaseUri() {
+    return serverBaseUri;
+  }
+
+  public String getServerContext() {
+    return serverContext;
+  }
+
+  public String getClientApiKey() {
+    return clientApiKey;
+  }
+
+  public String getClientSecretKey() {
+    return clientSecretKey;
+  }
+
+  public String getCookieAuthenticationCachePolicy() {
+    return cookieAuthenticationCachePolicy;
   }
 }

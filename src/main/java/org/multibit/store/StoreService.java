@@ -9,6 +9,7 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
 import com.yammer.dropwizard.views.ViewMessageBodyWriter;
 import org.multibit.mbm.auth.hmac.HmacClientFilter;
+import org.multibit.mbm.client.HalHmacResourceFactory;
 import org.multibit.store.health.StoreHealthCheck;
 import org.multibit.store.resources.*;
 
@@ -40,7 +41,6 @@ public class StoreService extends Service<StoreConfiguration> {
 
   private StoreService() {
     super("store");
-    // TODO Work out why this has to be in the constructor or it fails
     CacheBuilderSpec cacheBuilderSpec = (System.getenv("FILE_CACHE_ENABLED") == null) ? CacheBuilderSpec.parse("maximumSize=0") : AssetsBundle.DEFAULT_CACHE_SPEC;
     addBundle(new AssetsBundle("/assets/css", cacheBuilderSpec, "/css"));
     addBundle(new AssetsBundle("/assets/js", cacheBuilderSpec, "/js"));
@@ -51,46 +51,29 @@ public class StoreService extends Service<StoreConfiguration> {
   protected void initialize(StoreConfiguration configuration,
                             Environment environment) {
 
-    // Read the configuration
-    URI mbmBaseUri = URI.create(configuration.getMbmBaseUri());
+    // Read the configuration and combine the values
+    URI baseUri = URI.create(
+      configuration.getServerBaseUri() +
+      configuration.getServerContext());
 
     // Configure upstream client
-    final JerseyClientFactory factory = new JerseyClientFactory(configuration.getJerseyClientConfiguration());
+    JerseyClientFactory factory = new JerseyClientFactory(configuration.getJerseyClientConfiguration());
     final JerseyClient jerseyClient = factory.build(environment);
     Providers providers = jerseyClient.getProviders();
-    // TODO Find a way to configure HMAC per user per request (inject?)
-    jerseyClient.addFilter(new HmacClientFilter("trent123", "trent456", providers));
+    jerseyClient.addFilter(new HmacClientFilter(providers));
+
+    // Configure the merchant resource builder
+    HalHmacResourceFactory
+      .INSTANCE
+      .setBaseUri(baseUri)
+      .setJerseyClient(jerseyClient)
+      .setClientApiKey(configuration.getClientApiKey())
+      .setClientSecretKey(configuration.getClientSecretKey());
 
     // Start Spring context based on the provided location
 
     // Configure environment
-
-    // Resources
-    // Affiliates
-    environment.addResource(new AffiliateAccountResource(jerseyClient,mbmBaseUri));
-    // Customers
-    environment.addResource(new CustomerWishlistResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new CustomerHistoryResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new CustomerAccountResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new CustomerRegisterResource(jerseyClient,mbmBaseUri));
-    // Public
-    environment.addResource(new PublicSpecialsResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicListingsResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicDeliveryResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicBrandResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicItemResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicCartResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicPrivacyResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicCompareResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicTermsResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicCategoryResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicNewsResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicVouchersResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicHomeResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicCheckoutResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicAboutResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicReturnsResource(jerseyClient,mbmBaseUri));
-    environment.addResource(new PublicContactResource(jerseyClient,mbmBaseUri));
+    environment.scanPackagesForResourcesAndProviders(PublicHomeResource.class);
 
     // Health checks
     environment.addHealthCheck(new StoreHealthCheck());

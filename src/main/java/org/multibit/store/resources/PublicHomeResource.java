@@ -1,6 +1,5 @@
 package org.multibit.store.resources;
 
-import com.yammer.dropwizard.client.JerseyClient;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.store.views.PublicFreemarkerView;
@@ -10,7 +9,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.net.URI;
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,14 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class PublicHomeResource extends BaseResource {
 
   /**
-   * @param jerseyClient The {@link com.yammer.dropwizard.client.JerseyClient} for upstream communication
-   * @param mbmBaseUri   The MBM base URI to locate the upstream server
-   */
-  public PublicHomeResource(JerseyClient jerseyClient, URI mbmBaseUri) {
-    super(jerseyClient, mbmBaseUri);
-  }
-
-  /**
    * Provide the initial view on to the system
    *
    * @return A localised view containing HTML
@@ -42,9 +34,25 @@ public class PublicHomeResource extends BaseResource {
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView retrieveAllByPage() {
+  public PublicFreemarkerView viewHome() {
     // TODO Add i18n
     return new PublicFreemarkerView("store/home.ftl");
+  }
+
+  /**
+   * Provide the initial view on to the system
+   *
+   * @return A the favicon images from the assets
+   */
+  @GET
+  @Path("/favicon.ico")
+  @Timed
+  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  public Response viewFavicon() {
+
+    InputStream is = PublicHomeResource.class.getResourceAsStream("/assets/favicon.ico");
+
+    return Response.ok(is).build();
   }
 
 }

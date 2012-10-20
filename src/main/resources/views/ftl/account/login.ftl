@@ -44,14 +44,16 @@
                 <label for="username" class="control-label">Username</label>
 
                 <div class="controls">
-                  <input type="text" placeholder="Enter your username" id="username" class="input-xlarge focused">
+                  <input id="username" name="username" type="text" placeholder="Enter your username"
+                         class="input-xlarge focused">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label">Password</label>
 
                 <div class="controls">
-                  <input type="password" placeholder="Enter your password" id="password" class="input-xlarge">
+                  <input id="password" name="password" type="password" placeholder="Enter your password"
+                         class="input-xlarge">
                 </div>
               </div>
 
