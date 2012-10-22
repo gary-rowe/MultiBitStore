@@ -1,8 +1,11 @@
 package org.multibit.store.resources;
 
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
-import org.multibit.store.views.PublicFreemarkerView;
+import org.multibit.mbm.auth.annotation.RememberMe;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.views.PublicRememberedView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -34,10 +37,11 @@ public class PublicHomeResource extends BaseResource {
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView viewHome() {
-
+  public PublicRememberedView viewHome(
+    @RememberMe Optional<ClientUser> rememberedUser
+  ) {
     // TODO Add i18n
-    return new PublicFreemarkerView("store/home.ftl");
+    return new PublicRememberedView("store/home.ftl",rememberedUser);
   }
 
   /**
@@ -48,7 +52,7 @@ public class PublicHomeResource extends BaseResource {
   @GET
   @Path("favicon.ico")
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(maxAge = 24, maxAgeUnit = TimeUnit.HOURS)
   public Response viewFavicon() {
 
     InputStream is = PublicHomeResource.class.getResourceAsStream("/assets/favicon.ico");

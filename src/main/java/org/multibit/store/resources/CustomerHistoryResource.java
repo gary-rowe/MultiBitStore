@@ -38,9 +38,6 @@ public class CustomerHistoryResource extends BaseResource {
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView showHistory(
     @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser user) {
-
-    // TODO Add i18n
-    // TODO Add security
     return new CustomerFreemarkerView("account/history.ftl", user);
   }
 

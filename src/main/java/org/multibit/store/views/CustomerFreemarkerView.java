@@ -10,24 +10,17 @@ import org.multibit.mbm.model.ClientUser;
  *
  * @since 0.0.1
  *
- * TODO Add support for backing bean with i18n etc
- *             @Context HttpServletResponse response      // Drop the session cookie on to the user
-Cookie cookie = new Cookie(MBM_SESSION_TOKEN,clientUser.get().getSessionToken().toString());
-// TODO Introduce HTTPS
-cookie.setSecure(false);
-response.addCookie(cookie);
- 
  */
 public class CustomerFreemarkerView extends PublicFreemarkerView {
 
-  private final ClientUser clientUser;
+  private final ClientUser authenticatedUser;
 
-  public CustomerFreemarkerView(String templateName, ClientUser clientUser) {
-    super("/views/ftl/"+templateName);
-    this.clientUser = clientUser;
+  public CustomerFreemarkerView(String templateName, ClientUser authenticatedUser) {
+    super(templateName);
+    this.authenticatedUser = authenticatedUser;
   }
 
-  public ClientUser getClientUser() {
-    return clientUser;
+  public ClientUser getAuthenticatedUser() {
+    return authenticatedUser;
   }
 }

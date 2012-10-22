@@ -1,8 +1,9 @@
-<#include "../includes/theme-switcher.ftl">
+<#include "theme-switcher.ftl">
 
 <div class="row">
   <div class="span4 logo">
     <a href="/">
+      <!-- TODO Provide preferences -->
       <h1>MultiBit Store</h1>
     </a>
   </div>
@@ -18,10 +19,12 @@
         <a href="#">GBP</a> |
         <a href="#">EUR</a>
       </div>
-      <div class="span2">
-        <a href="/cart"><h4>Shopping Cart (2)</h4></a>
-        <a href="/cart">2 item(s) - $40.00</a>
-      </div>
+
+      <!-- TODO Tie this in to the remember me cookie -->
+        <div class="span2">
+          <a href="/cart"><h4>Shopping Cart (0)</h4></a>
+          <a href="/cart">0 item(s) - $0.00</a>
+        </div>
       <div class="span3 customer_service">
         <h4>FREE delivery on ALL orders</h4>
         <h4>
@@ -38,8 +41,6 @@
         <a href="/cart">Shopping Cart</a> |
         <a href="/about">About</a> |
         <a href="/contact">Contact</a> |
-        <!-- TODO Wrap this in a suitable conditional -->
-        <a href="/account/signout">Sign Out</a>
       </div>
     </div>
   </div>

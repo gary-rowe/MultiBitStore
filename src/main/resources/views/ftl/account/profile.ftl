@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<#include "../includes/head.ftl">
+<#include "../includes/store/head.ftl">
 </head>
 
 <body>
 
 <div class="container">
-<#include "../includes/header.ftl">
-<#include "../includes/navbar.ftl">
+<#include "../includes/store/header.ftl">
+<#include "../includes/store/navbar.ftl">
   <div class="row">
 
     <div class="span12">
-    <#include "../includes/breadcrumb-account.ftl">
+    <#include "../includes/store/breadcrumb-account.ftl">
 
       <div class="span12">
       <h1>Create an account</h1>
@@ -147,12 +147,12 @@
 
   </div>
 
-<#include "../includes/footer.ftl">
+<#include "../includes/store/footer.ftl">
 
 </div>
 <!-- /container -->
 
-<#include "../includes/cdn-scripts.ftl">
+<#include "../includes/store/cdn-scripts.ftl">
 
 </body>
 </html>

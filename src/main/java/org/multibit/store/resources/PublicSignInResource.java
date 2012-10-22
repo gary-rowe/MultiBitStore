@@ -19,6 +19,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,9 +33,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Path("/account")
 @Produces(MediaType.TEXT_HTML)
-public class CustomerAccountResource extends BaseResource {
+public class PublicSignInResource extends BaseResource {
 
-  private static final Log LOG = Log.forClass(CustomerAccountResource.class);
+  private static final Log LOG = Log.forClass(PublicSignInResource.class);
 
   /**
    * Can only use an unsalted one-pass digest to synchronize with the server side
@@ -44,7 +45,7 @@ public class CustomerAccountResource extends BaseResource {
 
   private final StoreConfiguration storeConfiguration;
 
-  public CustomerAccountResource(StoreConfiguration storeConfiguration) {
+  public PublicSignInResource(StoreConfiguration storeConfiguration) {
     this.storeConfiguration = storeConfiguration;
   }
 
@@ -56,10 +57,10 @@ public class CustomerAccountResource extends BaseResource {
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView showSignin() {
-    // TODO Add i18n
-    // TODO Add security (page should only be served through HTTPS)
-    return new PublicFreemarkerView("account/signin.ftl");
+  public Response showSignin() {
+    return Response.ok(new PublicFreemarkerView("account/signin.ftl"))
+      .cookie(invalidateSessionToken()) // Secure
+      .build();
   }
 
   /**
@@ -113,7 +114,7 @@ public class CustomerAccountResource extends BaseResource {
     WebFormClientCredentials credentials = new WebFormClientCredentials(rawUsername, digestedPassword);
 
     // Attempt to authenticate
-    Optional<ClientUser> clientUser=Optional.absent();
+    Optional<ClientUser> clientUser;
     try {
       clientUser = authenticator.authenticate(credentials);
 
@@ -122,14 +123,14 @@ public class CustomerAccountResource extends BaseResource {
       }
 
     } catch (AuthenticationException e) {
-      LOG.error(e,e.getMessage());
+      LOG.error(e, e.getMessage());
       return handleFailedSignIn();
     }
 
     // Must be OK to be here
     return Response
-      .ok(new PublicFreemarkerView("account/history.ftl"))
-      .cookie(new NewCookie(storeConfiguration.getSessionTokenName(), clientUser.get().getSessionToken().toString()))
+      .seeOther(UriBuilder.fromResource(CustomerHistoryResource.class).build())
+      .cookie(newSessionToken(clientUser))
       .build();
   }
 
@@ -138,7 +139,7 @@ public class CustomerAccountResource extends BaseResource {
   public Response signout() {
     return Response
       .ok(new PublicFreemarkerView("store/signout.ftl"))
-      .cookie(new NewCookie(storeConfiguration.getSessionTokenName(), null, null, null, null, 0 /*maxAge*/, false))
+      .cookie(invalidateSessionToken())
       .build();
   }
 
@@ -148,7 +149,7 @@ public class CustomerAccountResource extends BaseResource {
     // TODO Consider tarpitting based on
     // Ensure we erase any local cookies just in case
     return Response.ok(new PublicFreemarkerView("account/signin.ftl"))
-      .cookie(new NewCookie(storeConfiguration.getSessionTokenName(), null, null, null, null, 0 /*maxAge*/, false))
+      .cookie(invalidateSessionToken())
       .build();
   }
 
@@ -160,4 +161,35 @@ public class CustomerAccountResource extends BaseResource {
   /* package */ void setAuthenticator(WebFormClientAuthenticator authenticator) {
     this.authenticator = authenticator;
   }
+
+  /**
+   * @return The invalidated session token cookie
+   */
+  private NewCookie invalidateSessionToken() {
+    return new NewCookie(
+      storeConfiguration.getSessionTokenName(),
+      "Invalidated",     // Value
+      "/",   // Path
+      null,   // Domain
+      null,   // Comment
+      0,      // Max age
+      false);
+  }
+
+  /**
+   * @param clientUser The authenticated user
+   *
+   * @return The associated session token for subsequent cookie authentication
+   */
+  private NewCookie newSessionToken(Optional<ClientUser> clientUser) {
+    return new NewCookie(
+      storeConfiguration.getSessionTokenName(),
+      clientUser.get().getSessionToken().toString(),   // Value
+      "/",   // Path
+      null,   // Domain
+      null,   // Comment
+      NewCookie.DEFAULT_MAX_AGE, // Max age - expire on close
+      false);
+  }
+
 }

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<#include "../includes/head.ftl">
+<#include "../includes/store/head.ftl">
 </head>
 
 <body>
 
 <div id="wrap">
   <div id="main" class="container clear-top">
-  <#include "../includes/header.ftl">
-  <#include "../includes/navbar.ftl">
+  <#include "../includes/store/header.ftl">
+  <#include "../includes/store/navbar.ftl">
     <div class="row">
 
       <div class="span12">
@@ -25,11 +25,11 @@
 
   </div>
 
-<#include "../includes/footer.ftl">
+<#include "../includes/store/footer.ftl">
 
 </div>
 
-<#include "../includes/cdn-scripts.ftl">
+<#include "../includes/store/cdn-scripts.ftl">
 
 </body>
 </html>

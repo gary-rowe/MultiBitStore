@@ -17,7 +17,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class CustomerAccountResourceTest {
+public class PublicSignInResourceTest {
 
   private WebFormClientAuthenticator authenticator=mock(WebFormClientAuthenticator.class);
   private PasswordEncryptor encryptor = mock(PasswordEncryptor.class);
@@ -32,7 +32,7 @@ public class CustomerAccountResourceTest {
     ClientUser expectedClientUser=new ClientUser();
     expectedClientUser.setSessionToken(sessionToken);
 
-    CustomerAccountResource testObject = new CustomerAccountResource(storeConfiguration);
+    PublicSignInResource testObject = new PublicSignInResource(storeConfiguration);
     testObject.setAuthenticator(authenticator);
 
     // Create a matcher for the credentials argument

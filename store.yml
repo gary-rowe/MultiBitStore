@@ -9,12 +9,12 @@ http:
 
 # Define the client settings for connecting to upstream data services
 httpClient:
-  timeout: 1s # timeout after 1s while connecting, reading, or writing
-  timeToLive: 10m # keep connections open for 10 minutes
-  cookiesEnabled: false # don't track cookies
-  gzipEnabled: true # allow for gzipped request and response entities
+  timeout: 60s # Timeout while connecting, reading, or writing (Heroku needs large value for spin-up)
+  timeToLive: 10m # Keep connections open
+  cookiesEnabled: true # Track cookies
+  gzipEnabled: true # Allow for gzipped request and response entities
   minThreads: 1
-  maxThreads: 128 # thread pool for JerseyClient's async requests
+  maxThreads: 128 # Thread pool for JerseyClient's async requests
 
 logging:
 
