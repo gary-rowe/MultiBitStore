@@ -1,11 +1,8 @@
 package org.multibit.store.resources;
 
-import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
-import org.multibit.mbm.auth.annotation.RememberMe;
-import org.multibit.mbm.model.ClientUser;
-import org.multibit.store.views.PublicRememberedView;
+import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -37,11 +34,9 @@ public class PublicHomeResource extends BaseResource {
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicRememberedView viewHome(
-    @RememberMe Optional<ClientUser> rememberedUser
-  ) {
+  public PublicFreemarkerView viewHome() {
     // TODO Add i18n
-    return new PublicRememberedView("store/home.ftl",rememberedUser);
+    return new PublicFreemarkerView("store/home.ftl");
   }
 
   /**
