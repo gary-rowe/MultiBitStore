@@ -37,8 +37,9 @@ public class CustomerHistoryResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView showHistory(
-    @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser user) {
-    return new CustomerFreemarkerView("account/history.ftl", user);
+    @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser clientUser) {
+
+    return new CustomerFreemarkerView("account/history.ftl", populateCart(clientUser));
   }
 
 }

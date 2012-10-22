@@ -1,5 +1,9 @@
 package org.multibit.store.resources;
 
+import org.multibit.mbm.client.CustomerMerchantClient;
+import org.multibit.mbm.model.ClientCart;
+import org.multibit.mbm.model.ClientUser;
+
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
@@ -36,4 +40,10 @@ public abstract class BaseResource {
     return locale;
   }
 
+  protected ClientCart populateCart(ClientUser clientUser) {
+    return CustomerMerchantClient
+        .newInstance(getLocale())
+        .cart()
+        .retrieveCartNoItems(clientUser);
+  }
 }

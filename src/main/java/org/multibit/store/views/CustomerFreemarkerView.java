@@ -1,6 +1,6 @@
 package org.multibit.store.views;
 
-import org.multibit.mbm.model.ClientUser;
+import org.multibit.mbm.model.ClientCart;
 
 /**
  * <p>View to provide the following to resources:</p>
@@ -13,14 +13,15 @@ import org.multibit.mbm.model.ClientUser;
  */
 public class CustomerFreemarkerView extends PublicFreemarkerView {
 
-  private final ClientUser authenticatedUser;
+  private final ClientCart cart;
 
-  public CustomerFreemarkerView(String templateName, ClientUser authenticatedUser) {
+  public CustomerFreemarkerView(String templateName,
+                                ClientCart cart) {
     super(templateName);
-    this.authenticatedUser = authenticatedUser;
+    this.cart = cart;
   }
 
-  public ClientUser getAuthenticatedUser() {
-    return authenticatedUser;
+  public ClientCart getCart() {
+    return cart;
   }
 }

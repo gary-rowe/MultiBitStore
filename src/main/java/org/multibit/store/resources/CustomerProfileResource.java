@@ -37,11 +37,8 @@ public class CustomerProfileResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView showProfile(
-    @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser user) {
-
-    // TODO Add i18n
-    // TODO Add security
-    return new CustomerFreemarkerView("account/profile.ftl", user);
+    @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser clientUser) {
+    return new CustomerFreemarkerView("account/profile.ftl", populateCart(clientUser));
   }
 
 }

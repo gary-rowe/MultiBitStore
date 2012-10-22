@@ -21,8 +21,8 @@
       </div>
     <div class="span2">
         <#if cart?? >
-        <a href="/cart"><h4>Shopping Cart (${authenticatedUser.cart.itemCount!"?"})</h4></a>
-        <a href="/cart">${authenticatedUser.cart.itemCount!"?"} item(s) - ${cart.currency!"?"}${cart.total!"?"}</a>
+        <a href="/cart"><h4>Shopping Cart (${cart.itemCount!"?"})</h4></a>
+        <a href="/cart">${cart.itemCount!"?"} item(s) - ${cart.localSymbol!"?"}${cart.localTotal!"?"}</a>
         <#else>
         <a href="/cart"><h4>Shopping Cart (0)</h4></a>
         <a href="/cart">0 item(s) - $0.00</a>
