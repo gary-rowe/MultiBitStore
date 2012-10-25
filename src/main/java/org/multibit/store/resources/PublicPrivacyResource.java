@@ -1,8 +1,10 @@
 package org.multibit.store.resources;
 
-import com.yammer.dropwizard.client.JerseyClient;
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +12,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,8 +36,10 @@ public class PublicPrivacyResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView retrieveAllByPage() {
-    // TODO Add i18n
-    return new PublicFreemarkerView("store/privacy.ftl");
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("store/privacy.ftl",model);
   }
 
 }

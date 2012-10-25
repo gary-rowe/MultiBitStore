@@ -1,11 +1,17 @@
 package org.multibit.store.resources;
 
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.auth.Authority;
+import org.multibit.mbm.auth.annotation.RestrictedTo;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -25,16 +31,40 @@ import java.util.concurrent.TimeUnit;
 public class PublicCartResource extends BaseResource {
 
   /**
-   * Provide the initial view on to the system
+   * Provide the current state of the cart
    *
    * @return A localised view containing HTML
    */
   @GET
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView retrieveAllByPage() {
-    // TODO Add i18n
-    return new PublicFreemarkerView("store/cart.ftl");
+  public PublicFreemarkerView retrieveAllByPage(
+    @RestrictedTo({Authority.ROLE_PUBLIC})
+    ClientUser publicUser
+  ) {
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.of(publicUser));
+
+    return new PublicFreemarkerView<BaseModel>("store/cart.ftl",model);
   }
+
+  /**
+   * Provide the current state of the cart
+   *
+   * @return A localised view containing HTML
+   */
+  @POST
+  @Timed
+  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  public PublicFreemarkerView updateQuantity() {
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("store/cart.ftl",model);
+  }
+
+
 
 }

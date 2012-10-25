@@ -1,7 +1,10 @@
 package org.multibit.store.resources;
 
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -31,9 +34,11 @@ public class CustomerRegisterResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView showRegistration() {
-    // TODO Add i18n
-    // TODO Add security
-    return new PublicFreemarkerView("account/register.ftl");
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("account/register.ftl",model);
   }
 
   /**
@@ -49,9 +54,13 @@ public class CustomerRegisterResource extends BaseResource {
     @FormParam("password1") String rawPassword1,
     @FormParam("password2") String rawPassword2
     ) {
-    // TODO Add i18n
-    // TODO Add security
-    return new PublicFreemarkerView("account/profile.ftl");
+
+    // TODO Add the client registration call
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("account/profile.ftl",model);
   }
 
 }

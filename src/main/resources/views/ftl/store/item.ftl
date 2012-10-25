@@ -20,7 +20,7 @@
 
       <div class="row">
         <div class="span9">
-          <h1>${item.optionalProperties.title!"Unknown"?html}</h1>
+          <h1>${model.item.optionalProperties.title!"Unknown"?html}</h1>
         </div>
       </div>
       <hr>

@@ -1,6 +1,6 @@
 package org.multibit.store.views;
 
-import org.multibit.store.model.ItemModel;
+import org.multibit.store.model.HomeModel;
 
 /**
  * <p>View to provide the following to resources:</p>
@@ -11,9 +11,9 @@ import org.multibit.store.model.ItemModel;
  *
  * @since 0.0.1
  */
-public class PublicItemView extends PublicFreemarkerView<ItemModel> {
+public class PublicHomeView extends PublicFreemarkerView<HomeModel> {
 
-  public PublicItemView(String templateName, ItemModel model) {
+  public PublicHomeView(String templateName, HomeModel model) {
     super(templateName, model);
   }
 }

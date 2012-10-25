@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="" type="org.multibit.store.views.PublicHomeView" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,75 +19,20 @@
 
       <div class="row">
         <div class="span9">
-          <!-- start categories -->
-          <!-- TODO Create and fill template from promotional items -->
           <ul class="thumbnails">
+          <#list model.promotionalItems as item>
             <li class="span3">
               <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_camera_photo.png"></a>
+                <a href="/listings"><img alt="${item.optionalProperties.title!"Unknown"?html}" src="${item.optionalProperties.image_thumbnail_uri!"/images/book.jpg"}"></a>
 
                 <div class="caption">
-                  <a href="/listings"><h5>Camera & Photo</h5></a>
+                  <a href="/listings"><h5>${item.optionalProperties.title!"Unknown"?html}</h5></a>
                 </div>
               </div>
             </li>
-            <li class="span3">
-              <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_tv.jpg"></a>
-
-                <div class="caption">
-                  <a href="/listings"><h5>TV</h5></a>
-                </div>
-              </div>
-            </li>
-            <li class="span3">
-              <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_home_cinema.jpg"></a>
-
-                <div class="caption">
-                  <a href="/listings"><h5>Home Cinema</h5></a>
-                </div>
-              </div>
-            </li>
-            <li class="span3">
-              <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_audio.jpg"></a>
-
-                <div class="caption">
-                  <a href="/listings"><h5>Audio, MP3 & Accessories</h5></a>
-                </div>
-              </div>
-            </li>
-            <li class="span3">
-              <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_sat_nav.jpg"></a>
-
-                <div class="caption">
-                  <a href="/listings"><h5>Sat Nav & Car Electronics</h5></a>
-                </div>
-              </div>
-            </li>
-            <li class="span3">
-              <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_phone.png"></a>
-
-                <div class="caption">
-                  <a href="/listings"><h5>Phones & Accessories</h5></a>
-                </div>
-              </div>
-            </li>
-            <li class="span3">
-              <div class="thumbnail">
-                <a href="/listings"><img alt="" src="/images/cat_games.png"></a>
-
-                <div class="caption">
-                  <a href="/listings"><h5>PC & Video Games</h5></a>
-                </div>
-              </div>
-            </li>
+          </#list>
           </ul>
         </div>
-        <!-- end categories -->
       </div>
 
     </div>

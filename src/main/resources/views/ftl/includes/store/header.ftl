@@ -4,7 +4,7 @@
   <div class="span4 logo">
     <a href="/">
       <!-- TODO Provide preferences -->
-      <h1>MultiBit Store</h1>
+      <h1>MultiBit Store<sup>alpha</sup></h1>
     </a>
   </div>
 

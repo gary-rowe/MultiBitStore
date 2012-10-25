@@ -1,7 +1,12 @@
 package org.multibit.store.resources;
 
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.client.PublicMerchantClient;
+import org.multibit.mbm.model.ClientItem;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.model.HomeModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,8 +41,18 @@ public class PublicHomeResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView viewHome() {
-    // TODO Add i18n
-    return new PublicFreemarkerView("store/home.ftl");
+
+    // Prepare the list of promotional items
+   List<ClientItem> items = PublicMerchantClient
+      .newInstance(getLocale())
+      .items()
+      .retrievePromotionalItemsByPage(0,10);
+
+    // Add it to the model
+    HomeModel model = new HomeModel(items);
+    model.setCart(populateCartSummary(Optional.<ClientUser>absent()));
+
+    return new PublicFreemarkerView<HomeModel>("store/home.ftl",model);
   }
 
   /**

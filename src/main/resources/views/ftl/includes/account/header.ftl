@@ -1,10 +1,10 @@
-<#-- @ftlvariable name="" type="org.multibit.store.views.CustomerFreemarkerView" -->
+<#-- @ftlvariable name="" type="org.multibit.store.views.PublicFreemarkerView" -->
 <#include "theme-switcher.ftl">
 
 <div class="row">
   <div class="span4 logo">
     <a href="/">
-      <h1>MultiBit Store</h1>
+      <h1>MultiBit Store<sup>alpha-2</sup></h1>
     </a>
   </div>
 
@@ -21,8 +21,8 @@
       </div>
     <div class="span2">
         <#if cart?? >
-        <a href="/cart"><h4>Shopping Cart (${cart.itemCount!"?"})</h4></a>
-        <a href="/cart">${cart.itemCount!"?"} item(s) - ${cart.localSymbol!"?"}${cart.localTotal!"?"}</a>
+        <a href="/cart"><h4>Shopping Cart (${model.cart.itemCount!"?"})</h4></a>
+        <a href="/cart">${model.cart.itemCount!"?"} item(s) - ${model.cart.localSymbol!"?"}${model.cart.localTotal!"?"}</a>
         <#else>
         <a href="/cart"><h4>Shopping Cart (0)</h4></a>
         <a href="/cart">0 item(s) - $0.00</a>

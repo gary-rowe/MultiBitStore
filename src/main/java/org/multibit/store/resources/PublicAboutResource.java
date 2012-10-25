@@ -1,7 +1,10 @@
 package org.multibit.store.resources;
 
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -33,8 +36,11 @@ public class PublicAboutResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView retrieveAllByPage() {
-    // TODO Add i18n
-    return new PublicFreemarkerView("store/about.ftl");
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("store/about.ftl",model);
   }
 
 }

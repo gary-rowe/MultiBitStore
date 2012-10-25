@@ -1,7 +1,10 @@
 package org.multibit.store.resources;
 
+import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * <p>Resource to provide the following to application:</p>
  * <ul>
- * <li>Provision of demonstration error pages</li>
+ * <li>Provision of error pages</li>
  * </ul>
  *
  * @since 0.0.1
@@ -25,7 +28,24 @@ import java.util.concurrent.TimeUnit;
 public class PublicErrorResource extends BaseResource {
 
   /**
-   * Provide the 404 error page
+   * Provide the 401 Unauthorized page
+   *
+   * @return A localised view containing HTML
+   */
+  @GET
+  @Path("/401")
+  @Timed
+  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  public PublicFreemarkerView view401() {
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("error/401.ftl",model);
+  }
+
+  /**
+   * Provide the 404 Not Found page
    *
    * @return A localised view containing HTML
    */
@@ -34,11 +54,15 @@ public class PublicErrorResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView view404() {
-    return new PublicFreemarkerView("error/404.ftl");
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("error/404.ftl",model);
   }
 
   /**
-   * Provide the 404 error page
+   * Provide the 500 Internal Server Error page
    *
    * @return A localised view containing HTML
    */
@@ -47,7 +71,10 @@ public class PublicErrorResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView view500() {
-    return new PublicFreemarkerView("error/500.ftl");
-  }
 
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("error/500.ftl",model);
+  }
 }

@@ -12,6 +12,7 @@ import org.multibit.mbm.auth.webform.WebFormClientAuthenticator;
 import org.multibit.mbm.auth.webform.WebFormClientCredentials;
 import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.StoreConfiguration;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -58,7 +59,11 @@ public class PublicSignInResource extends BaseResource {
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public Response showSignin() {
-    return Response.ok(new PublicFreemarkerView("account/signin.ftl"))
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return Response.ok(new PublicFreemarkerView<BaseModel>("account/signin.ftl",model))
       .cookie(invalidateSessionToken()) // Secure
       .build();
   }
@@ -76,9 +81,12 @@ public class PublicSignInResource extends BaseResource {
     @FormParam("username") String rawUsername,
     @FormParam("password") String rawPassword) {
 
-    // Attempt to authenticate
+    // TODO Attempt to authenticate
 
-    return new PublicFreemarkerView("account/history.ftl");
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("account/history.ftl",model);
   }
 
   /**
@@ -137,8 +145,12 @@ public class PublicSignInResource extends BaseResource {
   @GET
   @Path("/signout")
   public Response signout() {
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
     return Response
-      .ok(new PublicFreemarkerView("store/signout.ftl"))
+      .ok(new PublicFreemarkerView<BaseModel>("store/signout.ftl",model))
       .cookie(invalidateSessionToken())
       .build();
   }
@@ -147,8 +159,12 @@ public class PublicSignInResource extends BaseResource {
 
     // TODO Provide a failed sign in alert across the top of the page
     // TODO Consider tarpitting based on
+
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
     // Ensure we erase any local cookies just in case
-    return Response.ok(new PublicFreemarkerView("account/signin.ftl"))
+    return Response.ok(new PublicFreemarkerView<BaseModel>("account/signin.ftl",model))
       .cookie(invalidateSessionToken())
       .build();
   }

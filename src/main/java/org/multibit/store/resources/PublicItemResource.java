@@ -4,10 +4,11 @@ import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.mbm.client.PublicMerchantClient;
-import org.multibit.mbm.model.PublicItem;
+import org.multibit.mbm.model.ClientItem;
+import org.multibit.mbm.model.ClientUser;
 import org.multibit.mbm.resources.ResourceAsserts;
+import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
-import org.multibit.store.views.PublicItemView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -39,18 +40,22 @@ public class PublicItemResource extends BaseResource {
   @Path("/{sku}")
   @Timed
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
-  public PublicFreemarkerView retrieveBySku(@PathParam("sku") String rawSku ) {
+  public PublicFreemarkerView retrieveBySku(
+    @PathParam("sku") String rawSku ) {
 
     // TODO Validate the SKU
 
     // TODO Retrieve the Item from MBM with i18n
-    Optional<PublicItem> item = PublicMerchantClient
+    Optional<ClientItem> item = PublicMerchantClient
       .newInstance(getLocale())
       .item()
       .retrieveBySku(rawSku);
     ResourceAsserts.assertPresent(item,"item");
 
-    return new PublicItemView("store/item.ftl",item.get());
+    // Populate the model
+    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+
+    return new PublicFreemarkerView<BaseModel>("store/item.ftl",model);
   }
 
 }
