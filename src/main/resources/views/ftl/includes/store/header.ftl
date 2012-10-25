@@ -1,10 +1,10 @@
+<#-- @ftlvariable name="" type="org.multibit.store.views.PublicFreemarkerView" -->
 <#include "theme-switcher.ftl">
 
 <div class="row">
   <div class="span4 logo">
     <a href="/">
-      <!-- TODO Provide preferences -->
-      <h1>MultiBit Store<sup>alpha</sup></h1>
+      <h1>MultiBit Store<sup>alpha-2</sup></h1>
     </a>
   </div>
 
@@ -19,12 +19,15 @@
         <a href="#">GBP</a> |
         <a href="#">EUR</a>
       </div>
-
-      <!-- TODO Tie this in to the remember me cookie -->
-        <div class="span2">
-          <a href="/cart"><h4>Shopping Cart (0)</h4></a>
-          <a href="/cart">0 item(s) - $0.00</a>
-        </div>
+      <div class="span2">
+      <#if model.cart?? >
+        <a href="/cart"><h4>Shopping Cart (${model.cart.itemTotal!"?"})</h4></a>
+        <a href="/cart">${model.cart.quantityTotal!"?"} item(s) - ${model.cart.localSymbol!"?"}${model.cart.localTotal!"?"}</a>
+      <#else>
+        <a href="/cart"><h4>Shopping Cart (0)</h4></a>
+        <a href="/cart">0 item(s) - $0.00</a>
+      </#if>
+      </div>
       <div class="span3 customer_service">
         <h4>FREE delivery on ALL orders</h4>
         <h4>
@@ -41,6 +44,8 @@
         <a href="/cart">Shopping Cart</a> |
         <a href="/about">About</a> |
         <a href="/contact">Contact</a> |
+        <!-- TODO Wrap this in a suitable conditional -->
+        <a href="/account/signout">Sign Out</a>
       </div>
     </div>
   </div>

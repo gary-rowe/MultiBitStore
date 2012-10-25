@@ -8,7 +8,7 @@
 <body>
 
 <div class="container">
-<#include "../includes/account/header.ftl">
+<#include "../includes/store/header.ftl">
 <#include "../includes/store/navbar.ftl">
   <div class="row">
     <div class="span12">

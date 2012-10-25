@@ -8,6 +8,7 @@ import org.multibit.mbm.model.ClientItem;
 import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.model.HomeModel;
 import org.multibit.store.views.PublicFreemarkerView;
+import org.multibit.store.views.PublicHomeView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -42,7 +43,7 @@ public class PublicHomeResource extends BaseResource {
   @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
   public PublicFreemarkerView viewHome() {
 
-    // Prepare the list of promotional items
+   // Prepare the list of promotional items
    List<ClientItem> items = PublicMerchantClient
       .newInstance(getLocale())
       .items()
@@ -52,7 +53,7 @@ public class PublicHomeResource extends BaseResource {
     HomeModel model = new HomeModel(items);
     model.setCart(populateCartSummary(Optional.<ClientUser>absent()));
 
-    return new PublicFreemarkerView<HomeModel>("store/home.ftl",model);
+    return new PublicHomeView("store/home.ftl",model);
   }
 
   /**

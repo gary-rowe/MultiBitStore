@@ -11,14 +11,12 @@ import org.jasypt.util.password.rfc2307.RFC2307SHAPasswordEncryptor;
 import org.multibit.mbm.auth.webform.WebFormClientAuthenticator;
 import org.multibit.mbm.auth.webform.WebFormClientCredentials;
 import org.multibit.mbm.model.ClientUser;
-import org.multibit.store.StoreConfiguration;
 import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.util.concurrent.TimeUnit;
@@ -43,12 +41,6 @@ public class PublicSignInResource extends BaseResource {
    */
   private final PasswordEncryptor passwordEncryptor = new RFC2307SHAPasswordEncryptor();
   private WebFormClientAuthenticator authenticator = new WebFormClientAuthenticator();
-
-  private final StoreConfiguration storeConfiguration;
-
-  public PublicSignInResource(StoreConfiguration storeConfiguration) {
-    this.storeConfiguration = storeConfiguration;
-  }
 
   /**
    * Provide the initial view on to the signin/registration page
@@ -138,7 +130,7 @@ public class PublicSignInResource extends BaseResource {
     // Must be OK to be here
     return Response
       .seeOther(UriBuilder.fromResource(CustomerHistoryResource.class).build())
-      .cookie(newSessionToken(clientUser))
+      .cookie(createOrUpdateSessionToken(clientUser))
       .build();
   }
 
@@ -176,36 +168,6 @@ public class PublicSignInResource extends BaseResource {
    */
   /* package */ void setAuthenticator(WebFormClientAuthenticator authenticator) {
     this.authenticator = authenticator;
-  }
-
-  /**
-   * @return The invalidated session token cookie
-   */
-  private NewCookie invalidateSessionToken() {
-    return new NewCookie(
-      storeConfiguration.getSessionTokenName(),
-      "Invalidated",     // Value
-      "/",   // Path
-      null,   // Domain
-      null,   // Comment
-      0,      // Max age
-      false);
-  }
-
-  /**
-   * @param clientUser The authenticated user
-   *
-   * @return The associated session token for subsequent cookie authentication
-   */
-  private NewCookie newSessionToken(Optional<ClientUser> clientUser) {
-    return new NewCookie(
-      storeConfiguration.getSessionTokenName(),
-      clientUser.get().getSessionToken().toString(),   // Value
-      "/",   // Path
-      null,   // Domain
-      null,   // Comment
-      NewCookie.DEFAULT_MAX_AGE, // Max age - expire on close
-      false);
   }
 
 }

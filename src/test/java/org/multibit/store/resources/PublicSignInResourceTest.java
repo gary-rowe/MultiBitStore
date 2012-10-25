@@ -32,7 +32,7 @@ public class PublicSignInResourceTest {
     ClientUser expectedClientUser=new ClientUser();
     expectedClientUser.setSessionToken(sessionToken);
 
-    PublicSignInResource testObject = new PublicSignInResource(storeConfiguration);
+    PublicSignInResource testObject = new PublicSignInResource();
     testObject.setAuthenticator(authenticator);
 
     // Create a matcher for the credentials argument

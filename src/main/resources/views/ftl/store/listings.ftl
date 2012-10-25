@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="" type="org.multibit.store.views.PublicHomeView" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,90 +18,46 @@
     <div class="span9">
       <ul class="breadcrumb">
         <li>
-          <a href="#">Home</a> <span class="divider">/</span>
+          <a href="/">Home</a> <span class="divider">/</span>
         </li>
         <li>
-          <a href="listings">Desktops</a> <span class="divider">/</span>
+          <a href="/listings">Books</a> <span class="divider">/</span>
         </li>
         <li class="active">
-          <a href="category">Mac</a>
+          <a href="/category">All</a>
         </li>
       </ul>
 
-
+    <#list model.promotionalItems as item>
       <div class="row">
         <div class="span1">
-          <a href="item"><img alt="" id="tmp" src="/images/ipodtouch_image2_20080909.jpg"></a>
+          <a href="${item.optionalProperties["item self"]}"><img alt="${item.optionalProperties.title!"Unknown"?html}"
+                                                                 src="${item.optionalProperties.image_thumbnail_uri!"/images/book.jpg"}"></a>
         </div>
 
         <div class="span6">
-          <a href="item"><h5>iPod Touch</h5></a>
+          <a href="item"><h5>${item.optionalProperties.title!"Unknown"?html}</h5></a>
 
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+          <p>${item.optionalProperties.summary!"Unknown"?html}</p>
         </div>
 
         <div class="span1">
-          <p>$587.50</p>
+          <p>${model.cart.localSymbol}${item.price!"10"?html}</p>
         </div>
 
         <div class="span2">
-          <p><a class="btn btn-primary" href="cart">Add to cart</a></p>
+          <form id="item-${item.SKU}" action="/cart" method="post">
+            <input type="hidden" name="${item.SKU}" value="1" />
+            <p><button class="btn btn-primary" type="submit">Add to cart</button></p>
+          </form>
 
-          <p><a class="" href="#">Add to Wish List</a></p>
+          <p><a class="btn btn-link" href="/wishlist">Add to Wish List</a></p>
 
-          <p><a class="" href="compare">Add to Compare</a></p>
+          <p><a class="btn btn-link" href="/compare">Add to Compare</a></p>
         </div>
       </div>
       <hr/>
-      <div class="row">
-        <div class="span1">
-          <a href="item"><img alt="" src="/images/ipodtouch_image2_20080909.jpg"></a>
-        </div>
-
-        <div class="span6">
-          <a href="item"><h5>iPod Touch</h5></a>
-
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-        </div>
-
-        <div class="span1">
-          <p>$587.50</p>
-        </div>
-
-        <div class="span2">
-          <p><a class="btn btn-primary" href="cart">Add to cart</a></p>
-
-          <p><a class="" href="#">Add to Wish List</a></p>
-
-          <p><a class="" href="compare">Add to Compare</a></p>
-        </div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="span1">
-          <a href="item"><img alt="" src="/images/ipodtouch_image2_20080909.jpg"></a>
-        </div>
-
-        <div class="span6">
-          <a href="item"><h5>iPod Touch</h5></a>
-
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-        </div>
-
-        <div class="span1">
-          <p>$587.50</p>
-        </div>
-
-        <div class="span2">
-          <p><a class="btn btn-primary" href="cart">Add to cart</a></p>
-
-          <p><a class="" href="#">Add to Wish List</a></p>
-
-          <p><a class="" href="compare">Add to Compare</a></p>
-        </div>
-      </div>
-      <hr/>
-
+    </#list>
 
       <div class="pagination">
         <ul>

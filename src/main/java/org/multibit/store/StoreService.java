@@ -16,7 +16,6 @@ import org.multibit.mbm.auth.hmac.HmacClientFilter;
 import org.multibit.mbm.client.HalHmacResourceFactory;
 import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.health.StoreHealthCheck;
-import org.multibit.store.resources.PublicSignInResource;
 import org.multibit.store.resources.PublicHomeResource;
 
 import javax.ws.rs.ext.Providers;
@@ -83,7 +82,6 @@ public class StoreService extends Service<StoreConfiguration> {
 
     // Configure environment
     environment.scanPackagesForResourcesAndProviders(PublicHomeResource.class);
-    environment.addResource(new PublicSignInResource(configuration));
 
     // Health checks
     environment.addHealthCheck(new StoreHealthCheck());

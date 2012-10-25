@@ -4,10 +4,12 @@ import com.google.common.base.Optional;
 import org.multibit.mbm.client.PublicMerchantClient;
 import org.multibit.mbm.model.ClientCart;
 import org.multibit.mbm.model.ClientUser;
+import org.multibit.store.StoreConfiguration;
 import org.multibit.store.model.BaseModel;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.UriInfo;
 import java.util.Currency;
 import java.util.Locale;
@@ -60,11 +62,11 @@ public abstract class BaseResource {
   public ClientCart getEmptyCart() {
     Locale locale = getLocale();
     ClientCart emptyCart = new ClientCart();
-    emptyCart.setItemCount("0");
+    emptyCart.setItemTotal("0");
+    emptyCart.setQuantityTotal("0");
     emptyCart.setBtcTotal("0.0000");
     emptyCart.setLocalTotal("0.00");
     emptyCart.setLocalSymbol(Currency.getInstance(locale).getSymbol());
-    emptyCart.setItemCount("0");
     return emptyCart;
   }
 
@@ -98,5 +100,35 @@ public abstract class BaseResource {
     model.setUser(clientUser.orNull());
 
     return model;
+  }
+
+  /**
+   * @return The invalidated session token cookie
+   */
+  protected NewCookie invalidateSessionToken() {
+    return new NewCookie(
+      StoreConfiguration.SESSION_TOKEN_NAME,
+      "Invalidated",     // Value
+      "/",   // Path
+      null,   // Domain
+      null,   // Comment
+      0,      // Max age
+      false);
+  }
+
+  /**
+   * @param clientUser The authenticated user
+   *
+   * @return The associated session token for subsequent cookie authentication
+   */
+  protected NewCookie createOrUpdateSessionToken(Optional<ClientUser> clientUser) {
+    return new NewCookie(
+      StoreConfiguration.SESSION_TOKEN_NAME,
+      clientUser.get().getSessionToken().toString(),   // Value
+      "/",   // Path
+      null,   // Domain
+      null,   // Comment
+      NewCookie.DEFAULT_MAX_AGE, // Max age - expire on close
+      false);
   }
 }

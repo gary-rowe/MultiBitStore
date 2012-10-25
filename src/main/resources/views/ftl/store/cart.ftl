@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="" type="org.multibit.store.views.PublicCartView" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,54 +14,58 @@
   <div class="row">
     <div class="span12">
 
+      <h1>Shopping Cart</h1><br/>
 
-      <h1> Shopping Cart</h1><br/>
+      <p class="text-info">You can remove items by setting their quantity to zero.</p>
 
-      <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-          <th>Remove</th>
-          <th>Image</th>
-          <th>Product Name</th>
-          <th>Model</th>
-          <th>Quantity</th>
-          <th>Unit Price</th>
-          <th>Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td class=""><input type="checkbox" value="option1" id="optionsCheckbox"></td>
-          <td class="muted center_text"><a href="item"><img src="/images/macbook-pro.jpg"></a></td>
-          <td>MacBook Pro</td>
-          <td>Product 18</td>
-          <td><input type="text" placeholder="1" class="input-mini"></td>
-          <td>$2,350.00</td>
-          <td>$2,350.00</td>
-        </tr>
-        <tr>
-          <td class=""><input type="checkbox" value="option1" id="optionsCheckbox"></td>
-          <td class="muted center_text"><a href="item"><img src="/images/macbook-pro.jpg"></a></td>
-          <td>MacBook Pro</td>
-          <td>Product 18</td>
-          <td><input type="text" placeholder="1" class="input-mini"></td>
-          <td>$2,350.00</td>
-          <td>$2,350.00</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td><strong>$4,700.00</strong></td>
-        </tr>
-        </tbody>
-      </table>
-
-      <form class="form-horizontal">
+      <form id="cart" action="/cart" method="post">
         <fieldset>
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Image</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Tax</th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#if model.cart.isEmpty() == true >
+            <tr>
+              <td>Empty&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+            <#else>
+              <#list model.cart.cartItems as cartItem>
+              <tr>
+                <td class="muted center_text"><a href="${cartItem.item.optionalProperties["item self"]}"><img
+                  alt="${cartItem.item.optionalProperties.title!"Unknown"?html}"
+                  src="${cartItem.item.optionalProperties.image_thumbnail_uri!"/images/book.jpg"}"></a></td>
+                <td>${cartItem.item.optionalProperties.title}</td>
+                <td><input type="text" placeholder="${cartItem.quantity}" class="input-mini"
+                           name="${cartItem.item.SKU}" value="${cartItem.quantity}"></td>
+                <td>$${cartItem.item.optionalProperties.price!"10"}</td>
+                <td>$${cartItem.quantity * 10}</td>
+                <td>$${cartItem.quantity * 10 * 1.2}</td>
+              </tr>
+              </#list>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><strong>${model.cart.localTotal}</strong></td>
+            </tr>
+            </#if>
+            </tbody>
+          </table>
 
 
           <div class="accordion" id="accordion2">
@@ -110,13 +115,13 @@
 
           <div class="row">
             <div class="span5">
-              <button class="btn btn-primary" type="submit">Update</button>
+              <button class="btn btn-info" type="submit">Update</button>
             </div>
             <div class="span2">
-              <button class="btn btn-primary" type="submit">Continue shopping</button>
+              <a href="/" class="btn btn-primary pull-right">Continue shopping</a>
             </div>
             <div class="span5">
-              <a href="checkout" class="btn btn-primary pull-right">Checkout</a>
+              <a href="/checkout" class="btn btn-success pull-right">Checkout</a>
             </div>
           </div>
         </fieldset>

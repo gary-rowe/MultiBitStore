@@ -19,6 +19,17 @@ import javax.validation.constraints.NotNull;
  */
 public class StoreConfiguration extends Configuration {
 
+  /**
+   * The cookie name for the session token
+   */
+  public static final String SESSION_TOKEN_NAME ="MBM-Session";
+
+  /**
+   * The cookie name for the "remember me" token
+   */
+  private static final String rememberMeName ="MBM-RememberMe";
+
+
   @NotEmpty
   @JsonProperty
   private String assetCachePolicy="maximumSize=10000, expireAfterAccess=5s";
@@ -61,20 +72,6 @@ public class StoreConfiguration extends Configuration {
   @JsonProperty
   private String clientSecretKey ="store456";
 
-  /**
-   * The cookie name for the session token
-   */
-  @NotEmpty
-  @JsonProperty
-  private String sessionTokenName ="MBM-Session";
-
-  /**
-   * The cookie name for the "remember me" token
-   */
-  @NotEmpty
-  @JsonProperty
-  private String rememberMeName ="MBM-RememberMe";
-
   @Valid
   @NotNull
   @JsonProperty
@@ -109,7 +106,7 @@ public class StoreConfiguration extends Configuration {
   }
 
   public String getSessionTokenName() {
-    return sessionTokenName;
+    return SESSION_TOKEN_NAME;
   }
 
   public String getRememberMeName() {
