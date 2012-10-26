@@ -46,7 +46,7 @@ public class PublicCartResource extends BaseResource {
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView viewCart(
     @RestrictedTo({Authority.ROLE_PUBLIC})
     ClientUser publicUser

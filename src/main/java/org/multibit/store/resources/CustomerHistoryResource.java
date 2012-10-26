@@ -1,6 +1,5 @@
 package org.multibit.store.resources;
 
-import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.mbm.auth.Authority;
@@ -14,7 +13,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Resource to provide the following to application:</p>
@@ -36,11 +34,11 @@ public class CustomerHistoryResource extends BaseResource {
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView showHistory(
     @RestrictedTo({Authority.ROLE_CUSTOMER}) ClientUser clientUser) {
 
-    BaseModel model = newBaseModel(Optional.of(clientUser));
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("account/history.ftl", model);
   }

@@ -19,7 +19,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Resource to provide the following to application:</p>
@@ -49,11 +48,11 @@ public class PublicSignInResource extends BaseResource {
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public Response showSignin() {
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return Response.ok(new PublicFreemarkerView<BaseModel>("account/signin.ftl",model))
       .cookie(invalidateSessionToken()) // Secure
@@ -68,7 +67,7 @@ public class PublicSignInResource extends BaseResource {
   @POST
   @Timed
   @Path("/register")
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView register(
     @FormParam("username") String rawUsername,
     @FormParam("password") String rawPassword) {
@@ -76,7 +75,7 @@ public class PublicSignInResource extends BaseResource {
     // TODO Attempt to authenticate
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("account/history.ftl",model);
   }
@@ -89,7 +88,7 @@ public class PublicSignInResource extends BaseResource {
   @POST
   @Timed
   @Path("/signin")
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public Response signin(
     @FormParam("username") String rawUsername,
     @FormParam("password") String rawPassword) {
@@ -138,8 +137,9 @@ public class PublicSignInResource extends BaseResource {
   @Path("/signout")
   public Response signout() {
 
-    // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    // Populate the model based on no user to get immediate visual feedback
+    BaseModel model = newBaseModel();
+    model.setUser(null);
 
     return Response
       .ok(new PublicFreemarkerView<BaseModel>("store/signout.ftl",model))
@@ -153,7 +153,7 @@ public class PublicSignInResource extends BaseResource {
     // TODO Consider tarpitting based on
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     // Ensure we erase any local cookies just in case
     return Response.ok(new PublicFreemarkerView<BaseModel>("account/signin.ftl",model))

@@ -34,11 +34,11 @@ public class PublicContactResource extends BaseResource {
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView retrieveAllByPage() {
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("store/contact.ftl",model);
   }

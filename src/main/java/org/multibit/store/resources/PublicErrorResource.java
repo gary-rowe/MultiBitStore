@@ -35,11 +35,11 @@ public class PublicErrorResource extends BaseResource {
   @GET
   @Path("/401")
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView view401() {
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("error/401.ftl",model);
   }
@@ -52,11 +52,11 @@ public class PublicErrorResource extends BaseResource {
   @GET
   @Path("/404")
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView view404() {
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("error/404.ftl",model);
   }
@@ -69,11 +69,11 @@ public class PublicErrorResource extends BaseResource {
   @GET
   @Path("/500")
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView view500() {
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("error/500.ftl",model);
   }

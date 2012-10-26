@@ -32,11 +32,11 @@ public class CustomerRegisterResource extends BaseResource {
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView showRegistration() {
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("account/register.ftl",model);
   }
@@ -48,7 +48,7 @@ public class CustomerRegisterResource extends BaseResource {
    */
   @POST
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView handleRegistration(
     @FormParam("username") String rawUsername,
     @FormParam("password1") String rawPassword1,
@@ -58,7 +58,7 @@ public class CustomerRegisterResource extends BaseResource {
     // TODO Add the client registration call
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("account/profile.ftl",model);
   }

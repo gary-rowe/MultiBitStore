@@ -39,7 +39,7 @@ public class PublicItemResource extends BaseResource {
   @GET
   @Path("/{sku}")
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView retrieveBySku(
     @PathParam("sku") String rawSku ) {
 
@@ -53,7 +53,7 @@ public class PublicItemResource extends BaseResource {
     ResourceAsserts.assertPresent(item,"item");
 
     // Populate the model
-    BaseModel model = newBaseModel(Optional.<ClientUser>absent());
+    BaseModel model = newBaseModel();
 
     return new PublicFreemarkerView<BaseModel>("store/item.ftl",model);
   }

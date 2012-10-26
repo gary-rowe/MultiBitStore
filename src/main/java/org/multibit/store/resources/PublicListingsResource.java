@@ -1,11 +1,9 @@
 package org.multibit.store.resources;
 
-import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.mbm.client.PublicMerchantClient;
 import org.multibit.mbm.model.ClientItem;
-import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.model.HomeModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
@@ -31,16 +29,15 @@ import java.util.concurrent.TimeUnit;
 public class PublicListingsResource extends BaseResource {
 
   /**
-   * Provide the initial view on to the system
+   * Provides the listings view associated with selected items from the
+   * general catalog
    *
    * @return A localised view containing HTML
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView viewListings() {
-
-    // TODO Turn this into a category search
 
     // Prepare the list of promotional items
     List<ClientItem> items = PublicMerchantClient
@@ -50,9 +47,9 @@ public class PublicListingsResource extends BaseResource {
 
     // Add it to the model
     HomeModel model = new HomeModel(items);
-    model.setCart(populateCartSummary(Optional.<ClientUser>absent()));
+    model.setCart(populateCartSummary());
 
-    return new PublicFreemarkerView<HomeModel>("store/listings.ftl",model);
+    return new PublicFreemarkerView<HomeModel>("store/listings.ftl", model);
   }
 
 }

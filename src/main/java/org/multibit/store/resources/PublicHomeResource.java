@@ -1,11 +1,9 @@
 package org.multibit.store.resources;
 
-import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import org.multibit.mbm.client.PublicMerchantClient;
 import org.multibit.mbm.model.ClientItem;
-import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.model.HomeModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.multibit.store.views.PublicHomeView;
@@ -40,18 +38,19 @@ public class PublicHomeResource extends BaseResource {
    */
   @GET
   @Timed
-  @CacheControl(maxAge = 5, maxAgeUnit = TimeUnit.MINUTES)
+  @CacheControl(noCache = true)
   public PublicFreemarkerView viewHome() {
 
    // Prepare the list of promotional items
-   List<ClientItem> items = PublicMerchantClient
+   List<ClientItem> promotionalItems = PublicMerchantClient
       .newInstance(getLocale())
       .items()
       .retrievePromotionalItemsByPage(0,10);
 
     // Add it to the model
-    HomeModel model = new HomeModel(items);
-    model.setCart(populateCartSummary(Optional.<ClientUser>absent()));
+    HomeModel model = new HomeModel(promotionalItems);
+    model.setUser(getClientUserFromSession().orNull());
+    model.setCart(populateCartSummary());
 
     return new PublicHomeView("store/home.ftl",model);
   }

@@ -39,13 +39,14 @@
 
     <div class="row">
       <div class="links pull-right">
-        <a href="/">Home</a> |
-        <a href="/account">My Account</a> |
-        <a href="/cart">Shopping Cart</a> |
-        <a href="/about">About</a> |
-        <a href="/contact">Contact</a> |
-        <!-- TODO Wrap this in a suitable conditional -->
-        <a href="/account/signout">Sign Out</a>
+        <a href="/"><i class="icon-home"></i> Home</a> |
+        <a href="/account"><i class="icon-user"></i> My Account</a> |
+        <a href="/cart"><i class="icon-shopping-cart"></i> Shopping Cart</a> |
+        <a href="/about"><i class="icon-info-sign"></i> About</a> |
+        <a href="/contact"><i class="icon-envelope"></i> Contact</a>
+      <#if model.user?? >
+        | <a href="/account/signout"><i class="icon-off"></i> Sign Out</a>
+      </#if>
       </div>
     </div>
   </div>
