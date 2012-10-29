@@ -10,6 +10,7 @@ import org.jasypt.util.password.PasswordEncryptor;
 import org.jasypt.util.password.rfc2307.RFC2307SHAPasswordEncryptor;
 import org.multibit.mbm.auth.webform.WebFormClientAuthenticator;
 import org.multibit.mbm.auth.webform.WebFormClientCredentials;
+import org.multibit.mbm.model.ClientCart;
 import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
@@ -138,7 +139,9 @@ public class PublicSignInResource extends BaseResource {
   public Response signout() {
 
     // Populate the model based on no user to get immediate visual feedback
-    BaseModel model = newBaseModel();
+    BaseModel model = new BaseModel();
+    ClientCart cart = getEmptyCart();
+    model.setCart(cart);
     model.setUser(null);
 
     return Response
