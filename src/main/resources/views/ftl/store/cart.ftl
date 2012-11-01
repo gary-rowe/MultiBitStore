@@ -26,9 +26,9 @@
               <th>Image</th>
               <th>Product Name</th>
               <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Tax</th>
-              <th>Total</th>
+              <th>Unit Price (${model.cart.currencySymbol})</th>
+              <th>Tax (${model.cart.currencySymbol})</th>
+              <th>Total (${model.cart.currencySymbol})</th>
             </tr>
             </thead>
             <tbody>
@@ -50,9 +50,9 @@
                 <td>${cartItem.item.optionalProperties.title}</td>
                 <td><input type="text" placeholder="${cartItem.quantity}" class="input-mini"
                            name="${cartItem.item.SKU}" value="${cartItem.quantity}"></td>
-                <td>$${cartItem.item.optionalProperties.price!"10"}</td>
-                <td>$${cartItem.quantity * 10}</td>
-                <td>$${cartItem.quantity * 10 * 1.2}</td>
+                <td>${cartItem.item.optionalProperties.price!"0"}</td>
+                <td>${cartItem.quantity * 1.1 * 0.2}</td>
+                <td>${cartItem.quantity * 1.1 * 1.2}</td>
               </tr>
               </#list>
             <tr>
@@ -61,7 +61,7 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td><strong>${model.cart.localTotal}</strong></td>
+              <td><strong>${model.cart.currencySymbol}&nbsp;${model.cart.priceTotal}</strong></td>
             </tr>
             </#if>
             </tbody>

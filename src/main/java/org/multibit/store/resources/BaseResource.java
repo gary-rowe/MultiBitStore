@@ -13,7 +13,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.UriInfo;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -66,16 +65,16 @@ public abstract class BaseResource {
   }
 
   /**
-   * @return The most appropriate locale for the upstream request (never null)
+   * @return An empty Cart configured according to user preferences
    */
   public ClientCart getEmptyCart() {
-    Locale locale = getLocale();
     ClientCart emptyCart = new ClientCart();
     emptyCart.setItemTotal("0");
     emptyCart.setQuantityTotal("0");
-    emptyCart.setBtcTotal("0.0000");
-    emptyCart.setLocalTotal("0.00");
-    emptyCart.setLocalSymbol(Currency.getInstance(locale).getSymbol());
+    // TODO Link this into the Preferences
+    emptyCart.setCurrencyCode("BTC");
+    emptyCart.setCurrencySymbol("Ƀ");
+    emptyCart.setPriceTotal("0.0000");
     return emptyCart;
   }
 

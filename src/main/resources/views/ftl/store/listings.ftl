@@ -42,7 +42,7 @@
         </div>
 
         <div class="span1">
-          <p>${model.cart.localSymbol}${item.price!"10"?html}</p>
+          <p>${model.cart.currencySymbol}&nbsp;${item.optionalProperties.price!"10"?html}</p>
         </div>
 
         <div class="span2">
