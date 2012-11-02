@@ -50,9 +50,9 @@
                 <td>${cartItem.item.optionalProperties.title}</td>
                 <td><input type="text" placeholder="${cartItem.quantity}" class="input-mini"
                            name="${cartItem.item.SKU}" value="${cartItem.quantity}"></td>
-                <td>${cartItem.item.optionalProperties.price!"0"}</td>
-                <td>${cartItem.quantity * 1.1 * 0.2}</td>
-                <td>${cartItem.quantity * 1.1 * 1.2}</td>
+                <td>${cartItem.item.price!"0"}</td>
+                <td>${cartItem.taxSubtotal}</td>
+                <td>${cartItem.cartItemSubtotal}</td>
               </tr>
               </#list>
             <tr>
