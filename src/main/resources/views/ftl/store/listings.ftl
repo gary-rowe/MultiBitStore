@@ -31,12 +31,12 @@
     <#list model.promotionalItems as item>
       <div class="row">
         <div class="span1">
-          <a href="${item.optionalProperties["item self"]}"><img alt="${item.optionalProperties.title!"Unknown"?html}"
+          <a href="/item/${item.SKU}"><img alt="${item.optionalProperties.title!"Unknown"?html}"
                                                                  src="${item.optionalProperties.image_thumbnail_uri!"/images/book.jpg"}"></a>
         </div>
 
         <div class="span6">
-          <a href="item"><h5>${item.optionalProperties.title!"Unknown"?html}</h5></a>
+          <a href="/item/${item.SKU}"><h5>${item.optionalProperties.title!"Unknown"?html}</h5></a>
 
           <p>${item.optionalProperties.summary!"Unknown"?html}</p>
         </div>

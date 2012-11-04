@@ -27,26 +27,26 @@
 
       <div class="row">
         <div class="span3">
-          <img alt="" src="/images/ipod_touch.jpg"/>
+          <img alt="" src="/images/book.jpg"/>
 
 
           <ul class="thumbnails">
 
             <li class="span1">
               <a href="#" class="thumbnail">
-                <img src="/images/1_50.jpg" alt="">
+                <img src="/images/book-closed_50.jpg" alt="">
               </a>
             </li>
 
             <li class="span1">
               <a href="#" class="thumbnail">
-                <img src="/images/2_50.jpg" alt="">
+                <img src="/images/excerpt_50.jpg" alt="">
               </a>
             </li>
 
             <li class="span1">
               <a href="#" class="thumbnail">
-                <img src="/images/3_50.jpg" alt="">
+                <img src="/images/excerpt-2_50.jpg" alt="">
               </a>
             </li>
 
@@ -58,27 +58,26 @@
 
           <div class="span6">
             <address>
-              <strong>Publisher:</strong> <span>${item.optionalProperties.publisher!"-"?html}</span><br/>
-              <strong>ISBN:</strong> <span>${item.optionalProperties.sku!"-"?html}</span><br/>
-              <strong>ISBN-13:</strong> <span>${item.optionalProperties.gtin!"-"?html}</span><br/>
-              <strong>Reward Points:</strong> <span>${item.optionalProperties.reward_points!"-"?html}</span><br/>
-              <strong>Availability:</strong> <span>${item.optionalProperties.availability!"-"?html}</span><br/>
+              <strong>Publisher:</strong> <span>${model.item.optionalProperties.publisher!"-"?html}</span><br/>
+              <strong>ISBN:</strong> <span>${model.item.SKU!"-"?html}</span><br/>
+              <strong>ISBN-13:</strong> <span>${model.item.GTIN!"-"?html}</span><br/>
+              <strong>Availability:</strong> <span>${model.item.optionalProperties.availability!"-"?html}</span><br/>
             </address>
           </div>
 
           <div class="span6">
             <h2>
-              <strong>Price: ${item.optionalProperties.price_local_inc_tax!"-"?html}</strong>
-              <small>Ex Tax: ${item.optionalProperties.price_local!"-"?html}</small>
+              <strong>Price: ${model.cart.currencySymbol}&nbsp;${model.item.price!"-"?html}</strong>
+              <small>Ex Tax: ${model.cart.currencySymbol}&nbsp;${model.item.price!"-"?html}</small>
               <br/><br/>
             </h2>
           </div>
 
           <div class="span6">
-            <form class="form-inline">
+            <form id="item-${model.item.SKU}" class="form-inline" action="/cart" method="post" >
               <div class="span3 no_margin_left">
                 <label>Qty:</label>
-                <input type="text" class="span1" placeholder="1">
+                <input type="text" class="span1" placeholder="1" name="${model.item.SKU}" value="1">
                 <button class="btn btn-primary" type="submit">Add to cart</button>
               </div>
               <div class="span1">
@@ -119,7 +118,7 @@
               <li><a href="#3" data-toggle="tab">Related products</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="1">${item.optionalProperties.description!"-"}</div>
+              <div class="tab-pane active" id="1">${model.item.optionalProperties.description!"-"}</div>
               <div class="tab-pane" id="2">
                 <p>There are no reviews for this product.</p>
               </div>

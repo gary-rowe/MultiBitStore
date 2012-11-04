@@ -12,34 +12,32 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="dropdown">
-                <a href="category" class="dropdown-toggle" data-toggle="dropdown">Desktops <b class="caret"></b></a>
+                <a href="category" class="dropdown-toggle" data-toggle="dropdown">MP3s<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/listings">PC</a></li>
-                  <li><a href="/listings">Mac</a></li>
+                  <li><a href="/listings">Rock</a></li>
+                  <li><a href="/listings">Electronica</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">Accessories</li>
-                  <li><a href="/listings">Keyboard</a></li>
-                  <li><a href="/listings">Speakers</a></li>
+                  <li class="nav-header">Pop</li>
+                  <li><a href="/listings">Ambient</a></li>
+                  <li><a href="/listings">Folk</a></li>
                 </ul>
               </li>
-              <li><a href="/category">Laptops</a></li>
+              <li><a href="/category?q=sport">Sports</a></li>
 
-              <li><a href="/category">Components</a></li>
-              <li><a href="/category">Tablets</a></li>
               <li class="dropdown">
-                <a href="/category" class="dropdown-toggle" data-toggle="dropdown">Software <b class="caret"></b></a>
+                <a href="/category?q=book" class="dropdown-toggle" data-toggle="dropdown">Books<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/listings">Business & Office</a></li>
-                  <li><a href="/listings">Children's Fun & Learning</a></li>
-                  <li><a href="/listings"> Digital Imaging</a></li>
+                  <li><a href="/listings?q=business">Business</a></li>
+                  <li><a href="/listings">Romance</a></li>
+                  <li><a href="/listings">Classics</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">PC Games</li>
-                  <li><a href="/listings">Action & Shooter</a></li>
+                  <li class="nav-header">Children and Teens</li>
                   <li><a href="/listings">Adventure</a></li>
-                  <li><a href="/listings">Fighting</a></li>
+                  <li><a href="/listings">Friendship</a></li>
+                  <li><a href="/listings">Funny</a></li>
                 </ul>
               </li>
-              <li><a href="/listings">Phones &amp; PDAs</a></li>
+              <li><a href="/listings">Electronics</a></li>
 
             </ul>
 

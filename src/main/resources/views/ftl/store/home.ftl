@@ -23,10 +23,10 @@
           <#list model.promotionalItems as item>
             <li class="span3">
               <div class="thumbnail">
-                <a href="/listings"><img alt="${item.optionalProperties.title!"Unknown"?html}" src="${item.optionalProperties.image_thumbnail_uri!"/images/book.jpg"}"></a>
+                <a href="/item/${item.SKU}"><img alt="${item.optionalProperties.title!"Unknown"?html}" src="${item.optionalProperties.image_thumbnail_uri!"/images/book.jpg"}"></a>
 
                 <div class="caption">
-                  <a href="/listings"><h5>${item.optionalProperties.title!"Unknown"?html}</h5></a>
+                  <a href="/item/${item.SKU}"><h5>${item.optionalProperties.title!"Unknown"?html}</h5></a>
                 </div>
               </div>
             </li>

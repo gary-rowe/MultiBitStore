@@ -3,11 +3,12 @@ package org.multibit.store.resources;
 import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
+import org.multibit.mbm.api.hal.HalMediaType;
 import org.multibit.mbm.client.PublicMerchantClient;
 import org.multibit.mbm.model.ClientItem;
-import org.multibit.mbm.model.ClientUser;
 import org.multibit.mbm.resources.ResourceAsserts;
 import org.multibit.store.model.BaseModel;
+import org.multibit.store.model.ItemModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Resource to provide the following to application:</p>
@@ -28,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Path("/item")
-@Produces(MediaType.TEXT_HTML)
+@Produces(HalMediaType.TEXT_HTML_UTF8)
 public class PublicItemResource extends BaseResource {
 
   /**
@@ -53,7 +52,9 @@ public class PublicItemResource extends BaseResource {
     ResourceAsserts.assertPresent(item,"item");
 
     // Populate the model
-    BaseModel model = newBaseModel();
+    ItemModel model = new ItemModel(item.get());
+    model.setCart(populateCartSummary());
+    model.setUser(getClientUserFromSession().orNull());
 
     return new PublicFreemarkerView<BaseModel>("store/item.ftl",model);
   }

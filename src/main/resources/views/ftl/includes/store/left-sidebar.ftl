@@ -1,35 +1,19 @@
 <ul class="breadcrumb">
-  <li>Categories</span></li>
+  <li>Departments</span></li>
 </ul>
-<div class="span3 product_list">
+<div class="span3 product_list pull-left">
   <ul class="nav">
-    <li>
-      <a class="active" href="category">Desktops (12)</a>
-      <ul>
-        <li><a href="listings"> - PC (11)</a></li>
-        <li><a class="active" href="listings"> - Mac (1)</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="category">Laptops &amp; Notebooks (5)</a>
-      <ul>
-        <li><a href="listings"> - Macs (0)</a></li>
-        <li><a href="listings"> - Windows (0)</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="category">Components (2)</a>
-      <ul>
-        <li><a href="listings"> - Mice and Trackballs (0)</a></li>
-        <li><a href="listings"> - Monitors (2)</a></li>
-        <li><a href="listings"> - Printers (0)</a></li>
-        <li><a href="listings"> - Scanners (0)</a></li>
-        <li><a href="listings"> - Web Cameras (0)</a></li>
-      </ul>
-    </li>
-    <li><a href="category">Tablets (1)</a></li>
-    <li><a href="category">Software (0)</a></li>
-    <li><a href="category">Phones &amp; PDAs (3)</a></li>
-    <li><a href="category">Cameras (2)</a></li>
+    <li><a href="/listings?q=mp3">MP3s</a></li>
+    <li><a href="/listings?q=app">Appstore</a></li>
+    <li><a href="/listings?q=book"><strong>Books</strong></a></li>
+    <li><a href="/listings?q=music,game,film,tv">Music, Games, Film and TV</a></li>
+    <li><a href="/listings?q=electronics">Electronics</a></li>
+    <li><a href="/listings?q=computer,office">Computers and Office</a></li>
+    <li><a href="/listings?q=home,garden,pets">Home, Garden and Pets</a></li>
+    <li><a href="/listings?q=toy,child,baby">Toys, Children and Baby</a></li>
+    <li><a href="/listings?q=cloth,shoe,watch">Clothes, Shoes and Watches</a></li>
+    <li><a href="/listings?q=sport,outdoor">Sports and Outdoors</a></li>
+    <li><a href="/listings?q=grocery,health,beauty">Grocery, Health and Beauty</a></li>
+    <li><a href="/listings?q=diy,tool,car">DIY, Tools and Car</a></li>
   </ul>
 </div>
