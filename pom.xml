@@ -176,6 +176,13 @@
       <version>1.0.5</version>
     </dependency>
 
+    <!-- MarkdownJ provides Markdown support -->
+    <dependency>
+      <groupId>org.pegdown</groupId>
+      <artifactId>pegdown</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+
   </dependencies>
 
 </project>

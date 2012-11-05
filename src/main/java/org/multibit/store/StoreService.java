@@ -97,6 +97,7 @@ public class StoreService extends Service<StoreConfiguration> {
     // Bundles
     addBundle(new ViewBundle());
 
+
   }
 
 }
