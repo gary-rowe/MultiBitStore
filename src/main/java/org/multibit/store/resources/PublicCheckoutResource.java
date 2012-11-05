@@ -1,9 +1,7 @@
 package org.multibit.store.resources;
 
-import com.google.common.base.Optional;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
-import org.multibit.mbm.model.ClientUser;
 import org.multibit.store.model.BaseModel;
 import org.multibit.store.views.PublicFreemarkerView;
 import org.springframework.stereotype.Component;
@@ -12,7 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Resource to provide the following to application:</p>
@@ -40,7 +37,13 @@ public class PublicCheckoutResource extends BaseResource {
     // Populate the model
     BaseModel model = newBaseModel();
 
-    return new PublicFreemarkerView<BaseModel>("store/checkout.ftl",model);
+    if (getClientUserFromSession().isPresent()) {
+      return new PublicFreemarkerView<BaseModel>("store/checkout.ftl", model);
+    }
+
+    // Default is anonymous
+    return new PublicFreemarkerView<BaseModel>("store/checkout-guest.ftl", model);
+
   }
 
 }

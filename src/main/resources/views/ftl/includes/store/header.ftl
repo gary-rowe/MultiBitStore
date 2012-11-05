@@ -1,6 +1,4 @@
 <#-- @ftlvariable name="" type="org.multibit.store.views.PublicFreemarkerView" -->
-<#include "theme-switcher.ftl">
-
 <div class="row">
   <div class="span4 logo">
     <a href="/">
@@ -23,9 +21,12 @@
       <#if model.cart?? >
         <a href="/cart"><h4>Shopping Cart</h4></a>
         <a href="/cart">${model.cart.quantityTotal!"?"} item(s) - ${model.cart.currencySymbol!"?"}&nbsp;${model.cart.priceTotal!"?"}</a>
+        <#if model.cart.quantityTotal != "0" >
+          <a href="/checkout">Checkout</a>
+        </#if>
       <#else>
-        <a href="/cart"><h4>Shopping Cart (0)</h4></a>
-        <a href="/cart">0 item(s) - Ƀ&nbsp;0.0000</a>
+        <a href="/cart"><h4>Shopping Cart</h4></a>
+        <a href="/cart">0 item(s) - ${model.cart.currencySymbol!"?"}&nbsp;0.0000</a>
       </#if>
       </div>
       <div class="span3 customer_service">

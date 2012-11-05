@@ -22,7 +22,6 @@
                   <li><a href="/listings">Folk</a></li>
                 </ul>
               </li>
-              <li><a href="/category?q=sport">Sports</a></li>
 
               <li class="dropdown">
                 <a href="/category?q=book" class="dropdown-toggle" data-toggle="dropdown">Books<b class="caret"></b></a>
@@ -31,13 +30,14 @@
                   <li><a href="/listings">Romance</a></li>
                   <li><a href="/listings">Classics</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">Children and Teens</li>
+                  <li class="nav-header">Children</li>
                   <li><a href="/listings">Adventure</a></li>
                   <li><a href="/listings">Friendship</a></li>
                   <li><a href="/listings">Funny</a></li>
                 </ul>
               </li>
-              <li><a href="/listings">Electronics</a></li>
+              <li><a href="/category?q=sport">Sports</a></li>
+              <li><a href="/category?q=electronics">Electronics</a></li>
 
             </ul>
 
