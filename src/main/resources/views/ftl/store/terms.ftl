@@ -26,7 +26,7 @@
 <h2>1.1 Defined terms</h2>
 <p>18.1 In these terms and conditions: 
 <ul>
-<li>&quot;MultiBit Ltd<p>website&quot; means our build-to-order website for customers in the mainland United Kingdom, Northern Ireland and the Isle of Man, the web address of which is <a href="http://multibit.org">http://multibit.org</a></li>
+<li>&quot;MultiBit Ltd<p>website&quot; means our build-to-order website for Customers the web address of which is <a href="http://multibit.org">http://multibit.org</a></li>
 <li>&quot;Calendar Day&quot; means any day of the week including Saturday and Sunday</li> 
 <li>&quot;Contract&quot; means these terms and conditions together with your Receipt</li> 
 <li>&quot;Customer&quot; means an entity who purchases Items through an Order from us</li>
