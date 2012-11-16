@@ -2,7 +2,7 @@
 <div class="row">
   <div class="span4 logo">
     <a href="/">
-      <h1>MultiBit Store<sup>alpha-3</sup></h1>
+      <h1>MultiBit Store<sup>alpha-4</sup></h1>
     </a>
   </div>
 

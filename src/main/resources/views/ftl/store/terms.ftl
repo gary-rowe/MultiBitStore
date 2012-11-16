@@ -9,19 +9,10 @@
 <div class="container">
 <#include "../includes/store/header.ftl">
 <#include "../includes/store/navbar.ftl">
-<div class="row">
 
 <div class="span12">
-<div class="page-header">
-  <h1>Typography
-    <small>Headings, paragraphs, lists, and other inline type elements</small>
-  </h1>
-</div>
 
-<h2>Headings &amp; body copy</h2>
-
-<div class="row">
-<h2>1. About these terms and conditions.</h2>
+<h2>1. About these terms and conditions</h2>
 
 <p>In these terms and conditions &quot;we&quot; and &quot;us&quot; mean MultiBit Ltd, and &quot;you&quot; means you
   the Customer. In these terms and conditions certain words spelt with initial capital letters are defined terms.
@@ -406,10 +397,9 @@
 
 </div>
 
-</div><#include "../includes/store/footer.ftl">
-
 </div>
-<!-- /container -->
+
+<#include "../includes/store/footer.ftl">
 
 <#include "../includes/store/cdn-scripts.ftl">
 
