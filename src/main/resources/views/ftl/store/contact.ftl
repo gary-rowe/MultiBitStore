@@ -16,7 +16,7 @@
 
       <h3>Address:</h3>
 
-      <p>Your Store<br/>Street address 1<br/>Store Town<br/>ZIP</p>
+      <p>MultiBit Ltd<br/>123 Nowhere Street<br/>Nowhere<br/>MU12 3ST</p>
 
       <div style="width:200px;height:200px">
         <iframe width="200" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
@@ -39,7 +39,7 @@
 
       <h3>Telephone:</h3>
 
-      <p>1234-123-1234</p>
+      <p>0123 456 789</p>
     </div>
     <div class="span9">
       <div class="page-header">
@@ -53,9 +53,8 @@
         <div class="span9">
           <form class="form-horizontal">
             <fieldset>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non egestas massa. Vestibulum ante ipsum
-                primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus auctor, urna a pretium
-                aliquam, enim tellus convallis dolor, eget semper sem risus placerat tortor.</p><br/>
+              <p>We've provided this form in case you don't have an email client handy. However, if you'd prefer
+                to just email us then use <a href="mailto:info@multibit.org?subject=Enquiry">info@multibit.org</a>.</p><br/>
 
               <div class="control-group">
                 <label for="focusedInput" class="control-label">First Name:</label>

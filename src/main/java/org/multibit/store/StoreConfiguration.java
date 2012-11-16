@@ -52,9 +52,8 @@ public class StoreConfiguration extends Configuration {
   /**
    * The context to locate the upstream server application
    */
-  @NotEmpty
   @JsonProperty
-  private String serverContext ="/mbm";
+  private String serverContext ="/";
 
   /**
    * The client API key to allow this application to authenticate with the upstream server
@@ -90,7 +89,7 @@ public class StoreConfiguration extends Configuration {
   }
 
   public String getServerContext() {
-    return serverContext;
+    return "/".equals(serverContext) ? "" : serverContext;
   }
 
   public String getClientApiKey() {

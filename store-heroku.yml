@@ -1,6 +1,6 @@
 # Define Store specific settings
 serverBaseUri: http://multibit-merchant.herokuapp.com
-serverContext: /mbm
+serverContext: /
 
 # Heroku injects the port value
 
